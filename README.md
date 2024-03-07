@@ -1,5 +1,9 @@
 # Peretasan WI-FI
 
+![](https://github.com/rofidoang03/wifi-hacking/blob/main/gambar/gambar.jpeg)
+
+> Peringatan: Repositori ini berisi tuPeringatan: Repositori ini berisi tutorial mengenai peretasan WI-FI. Repositori ini disediakan semata-mata untuk tujuan edukasi dan pembelajaran. Jika ada tindakan perusakan, kejahatan, atau kriminalitas yang timbul dari penerapan informasi dalam repositori ini, dengan tegas, pembuat repositori ini tidak bertanggung jawab.
+
 ## Peralatan
 
 Berikut ini adalah alat-alat yang diperlukan untuk melakukan peretasan WI-FI.
