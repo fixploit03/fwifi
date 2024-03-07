@@ -59,3 +59,7 @@ $ cd wifi-hacking/rtl8188eus
 $ chmod +x instal.sh
 $ ./instal.sh
 ```
+
+> Setelah memastikan semua peralatan yang diperlukan untuk melakukan peretasan Wi-Fi sudah tersedia, langkah-langkah berikut dapat diikuti untuk menjalankan proses peretasan Wi-Fi.
+
+## Proses peretasan WI-FI
