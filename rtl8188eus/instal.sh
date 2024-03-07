@@ -17,8 +17,8 @@ instal_driver() {
     echo 'blacklist rtl8xxxu' | sudo tee -a '/etc/modprobe.d/realtek.conf'
     make
     make install
-    rmmod r8188eu rtl8xxxu 8188eu
     modprobe 8188eu
+    cat NetworkManager.conf > /etc/NetworkManager/NetworkManager.conf
     exit 0
 }
 
