@@ -1,5 +1,10 @@
 # Peretasan WI-FI
 
+[![Kali Linux](https://img.shields.io/badge/Kali_Linux-blue?style=for-the-badge)](https://www.kali.org/)
+![aircrack-ng](https://img.shields.io/badge/aircrack--ng-lightgrey?style=for-the-badge&color=grey)
+![RockYou.txt](https://img.shields.io/badge/RockYou.txt-white?style=for-the-badge&color=black)
+![TP-Link TLWN722N](https://img.shields.io/badge/TP--Link_TLWN722N-brightgreen?style=for-the-badge&color=green)
+
 ![](https://github.com/rofidoang03/wifi-hacking/blob/main/gambar/gambar.jpeg)
 
 > **Peringatan**: Repositori ini berisi tutorial mengenai peretasan WI-FI. Repositori ini disediakan semata-mata untuk tujuan edukasi dan pembelajaran. Jika ada tindakan perusakan, kejahatan, atau kriminalitas yang timbul dari penerapan informasi dalam repositori ini, dengan tegas, pembuat repositori ini tidak bertanggung jawab.
