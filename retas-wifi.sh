@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$EUID" -ne 0 ]; then
-  echo "Skrip ini harus dijalankan sebagai root."
+  echo "Error: script ini harus dijalankan sebagai root."
   exit 1
 fi
 
@@ -63,7 +63,12 @@ while getopts "i:-:" opt; do
 done
 
 if [ -z "$interface" ]; then
-  echo "Error: Interface belum ditentukan. Gunakan opsi -i atau --interface."
+  echo "Error: interface belum ditentukan. Gunakan opsi -i atau --interface."
+  exit 1
+fi
+
+if ! ip link show "$interface" &>/dev/null; then
+  echo "Error: interface '$interface' tidak ditemukan."
   exit 1
 fi
 
