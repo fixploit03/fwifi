@@ -43,9 +43,19 @@ $ cd wifi-hacking/wordlists
 $ chmod +x instal.sh
 $ ./instal.sh
 ```
+
+## TP-Link TLWN722N
+
+TP-Link TL-WN722N adalah sebuah adaptor USB Wi-Fi yang dirancang untuk memberikan konektivitas nirkabel yang handal pada perangkat yang tidak memiliki kemampuan Wi-Fi bawaan. Dengan desain kompak dan performa yang baik, TL-WN722N menjadi pilihan populer untuk pengguna yang membutuhkan akses Wi-Fi pada desktop atau laptop.
   
 ## Instal Driver WI-FI TP-Link TLWN722N
 
 ```
-$ sudo apt-get update -y ; apt-get upgrade -y ; apt-get install git -y ; git clone https://github.com/rofidoang03/wifi-hacking/ ; cd wifi-hacking/rtl8188eus ; chmod +x instal.sh ; $ ./instal.sh
+$ sudo apt-get update -y
+$ sudo apt-get upgrade -y
+$ sudo apt-get install git -y
+$ git clone https://github.com/rofidoang03/wifi-hacking/
+$ cd wifi-hacking/rtl8188eus
+$ chmod +x instal.sh
+$ ./instal.sh
 ```
