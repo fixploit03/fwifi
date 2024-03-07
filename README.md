@@ -28,10 +28,20 @@ $ chmod +x instal.sh
 $ ./instal.sh
 ```
 
-## Instal wordlist rockyou.txt
+## RockYou.txt
+
+RockYou.txt adalah sebuah wordlist yang sangat populer dan sering digunakan dalam uji penetrasi, penelitian keamanan, dan analisis kata sandi. Nama "RockYou" diambil dari perusahaan bernama RockYou, penyedia layanan aplikasi media sosial, yang mengalami pelanggaran keamanan pada tahun 2009. Wordlist ini menjadi terkenal karena mencakup jutaan kata sandi yang berasal dari data pengguna yang bocor pada insiden tersebut.
+
+## Instal wordlist RockYou.txt
 
 ```
-$ sudo apt-get update -y ; apt-get upgrade -y ; apt-get install git -y ; git clone https://github.com/rofidoang03/wifi-hacking/ ; cd wifi-hacking/wordlists ; chmod +x instal.sh ; ./instal.sh
+$ sudo apt-get update -y
+$ sudo apt-get upgrade -y
+$ sudo apt-get install git -y
+$ git clone https://github.com/rofidoang03/wifi-hacking/
+$ cd wifi-hacking/wordlists
+$ chmod +x instal.sh
+$ ./instal.sh
 ```
   
 ## Instal Driver WI-FI TP-Link TLWN722N
