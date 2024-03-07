@@ -5,36 +5,6 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-# Mendapatkan waktu saat ini
-current_time=$(date +"%A, %d %B %Y %T")
-
-# Mengonversi hari dalam bahasa Indonesia
-case "$(date +"%A")" in
-  "Monday") day="Senin" ;;
-  "Tuesday") day="Selasa" ;;
-  "Wednesday") day="Rabu" ;;
-  "Thursday") day="Kamis" ;;
-  "Friday") day="Jumat" ;;
-  "Saturday") day="Sabtu" ;;
-  "Sunday") day="Minggu" ;;
-esac
-
-# Mengonversi bulan dalam bahasa Indonesia
-case "$(date +"%B")" in
-  "January") month="Januari" ;;
-  "February") month="Februari" ;;
-  "March") month="Maret" ;;
-  "April") month="April" ;;
-  "May") month="Mei" ;;
-  "June") month="Juni" ;;
-  "July") month="Juli" ;;
-  "August") month="Agustus" ;;
-  "September") month="September" ;;
-  "October") month="Oktober" ;;
-  "November") month="November" ;;
-  "December") month="Desember" ;;
-esac
-
 # Default interface
 interface=""
 
@@ -74,9 +44,6 @@ fi
 
 while true; do
   clear
-  echo "[+] Waktu: $day, $(date +"%d") $month $(date +"%Y"), $(date +"%T") WIB"
-  echo "[+] Pembuat Script: Rofi"
-  echo "[+] Github: https://github.com/rofidoang03/retas-wifi.git"
   echo ""
   echo "====================================================================="
   echo "                                                                     "
