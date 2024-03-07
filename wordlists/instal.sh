@@ -9,7 +9,7 @@ instal_wordlist() {
     apt-get full-upgrade -y
     apt-get install wget -y
     apt-get install gzip -y
-    wget https://gitlab.com/kalilinux/packages/wordlists/-/raw/kali/master/rockyou.txt.gz?ref_type=heads
+    wget https://github.com/praetorian-inc/Hob0Rules/raw/master/wordlists/rockyou.txt.gz
     gzip -d rockyou.txt.gz
     exit 0
 }
