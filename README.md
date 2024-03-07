@@ -4,10 +4,10 @@
 
 Berikut ini adalah alat-alat yang diperlukan untuk melakukan peretasan WI-FI.
 
-- Sistem operasi Kali Linux
-- WI-FI Adapter TP-Link TLWN722N
-- Tools Aircrack-ng
-- Wordlist rockyou.txt
+- Kali Linux
+- Aircrack-ng 
+- RockYou.txt
+- TP-Link TLWN722N
 
 ## Aircrack-ng
 
