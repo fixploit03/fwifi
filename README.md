@@ -1,4 +1,4 @@
-# Peretasan WI-FI :glo
+# Peretasan WI-FI
 
 ![](https://github.com/rofidoang03/wifi-hacking/blob/main/gambar/gambar.jpeg)
 
@@ -71,6 +71,8 @@ $ ./instal.sh
 > Setelah memastikan semua peralatan yang diperlukan untuk melakukan peretasan Wi-Fi sudah tersedia, langkah-langkah berikut dapat diikuti untuk menjalankan proses peretasan Wi-Fi.
 
 ## Proses peretasan WI-FI
+
+Berikut ini adalah langkah-langkah untuk melakukan peretasan WI-FI:
 
 ```
 # Memastikan tidak ada konflik dengan proses lain yang menggunakan Wi-Fi
