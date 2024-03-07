@@ -3,7 +3,7 @@
 # Pembuat: Rofi
 # GitHub: https://github.com/rofidoang03/wifi-hacking
 
-instal_driver() {
+instal_tools() {
     apt-get update -y
     apt-get upgrade -y
     apt-get full-upgrade -y
@@ -45,7 +45,7 @@ while true; do
     read -p "Apakah Anda ingin menginstal Tools Aircrack-ng [iya/tidak]: " nanya
 
     if [[ "${nanya}" == "iya" ]]; then
-        instal_driver
+        instal_tools
     elif [[ "${nanya}" == "tidak" ]]; then
         exit 1
     else
