@@ -55,4 +55,11 @@ cd wordlists
 wget https://github.com/praetorian-inc/Hob0Rules/raw/master/wordlists/rockyou.txt.gz
 gzip -d rockyou.txt.gz
 cd ..
+git clone https://github.com/aircrack-ng/aircrack-ng
+cd aircrack-ng
+autoreconf -i
+./configure --with-experimental
+make
+make install
+ldconfig
 echo -e "${r}[ ${g}OK ${r}] fwifi successfully installed."
