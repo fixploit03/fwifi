@@ -12,6 +12,8 @@ fi
 apt-get update -y
 apt-get upgrade -y
 apt-get full-upgrade -y
+apt-get install wget -y
+apt-get install gzip -y
 apt-get install bc -y
 apt-get install build-essential -y
 apt-get install libelf-dev -y
@@ -48,5 +50,9 @@ make install
 modprobe 8188eu
 cd ..
 cat NetworkManager.conf > /etc/NetworkManager/NetworkManager.conf
-
+mkdir wordlists
+cd wordlists
+wget https://github.com/praetorian-inc/Hob0Rules/raw/master/wordlists/rockyou.txt.gz
+gzip -d rockyou.txt.gz
+cd ..
 echo -e "${r}[ ${g}OK ${r}] fwifi successfully installed."
