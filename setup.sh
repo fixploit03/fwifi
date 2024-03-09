@@ -9,25 +9,36 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-echo -e "${r}[ ${c}info ${r}] Updating repository..."
 apt-get update -y
-echo -e "${r}[ ${g}OK ${r}] Repository successfully updated."
-echo -e "${r}[ ${c}info ${r}] Upgrading repository..."
 apt-get upgrade -y
-echo -e "${r}[ ${g}OK ${r}] Repository successfully upgraded."
-echo -e "${r}[ ${c}info ${r}] installing bc..."
+apt-get full-upgrade -y
 apt-get install bc -y
-echo -e "${r}[ ${g}OK ${r}] bc successfully installed."
-echo -e "${r}[ ${c}info ${r}] installing build-essential..."
 apt-get install build-essential -y
-echo -e "${r}[ ${g}OK ${r}] build-essential successfully installed."
-echo -e "${r}[ ${c}info ${r}] installing libelf-dev..."
 apt-get install libelf-dev -y
-echo -e "${r}[ ${g}OK ${r}] libelf-dev successfully installed."
-echo -e "${r}[ ${c}info ${r}] installing linux-headers..."
 apt-get install linux-headers-$(uname -r) -y
-echo -e "${r}[ ${g}OK ${r}] linux-headers successfully installed."
-echo -e "${r}[ ${c}info ${r}] cloning rtl8188eus repository..."
+apt-get install autoconf -y
+apt-get install automake -y
+apt-get install libtool -y
+apt-get install pkg-config -y
+apt-get install libnl-3-dev -y
+apt-get install libnl-genl-3-dev -y
+apt-get install libssl-dev -y
+apt-get install ethtool -y
+apt-get install shtool -y
+apt-get install rfkill -y 
+apt-get install zlib1g-dev -y
+apt-get install libpcap-dev -y
+apt-get install libsqlite3-dev -y
+apt-get install libpcre2-dev -y
+apt-get install libhwloc-dev -y
+apt-get install libcmocka-dev -y
+apt-get install hostapd -y
+apt-get install wpasupplicant -y
+apt-get install tcpdump -y
+apt-get install screen -y
+apt-get install iw -y
+apt-get install usbutils -y
+apt-get install expect -y
 git clone https://github.com/KanuX-14/rtl8188eus.git
 cd rtl8188eus
 echo 'blacklist r8188eu' | sudo tee -a '/etc/modprobe.d/realtek.conf'
