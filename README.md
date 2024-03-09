@@ -1,5 +1,4 @@
-# Peretasan WI-FI
-
+# FWIFI
 [![Kali Linux](https://img.shields.io/badge/Kali_Linux-blue?style=for-the-badge)](https://www.kali.org/)
 ![aircrack-ng](https://img.shields.io/badge/aircrack--ng-lightgrey?style=for-the-badge&color=grey)
 ![RockYou.txt](https://img.shields.io/badge/RockYou.txt-white?style=for-the-badge&color=black)
@@ -7,7 +6,7 @@
 
 ![](https://github.com/rofidoang03/wifi-hacking/blob/main/gambar/gambar.jpeg)
 
-> **Peringatan**: Repositori ini berisi tutorial mengenai peretasan WI-FI. Repositori ini disediakan semata-mata untuk tujuan edukasi dan pembelajaran. Jika ada tindakan perusakan, kejahatan, atau kriminalitas yang timbul dari penerapan informasi dalam repositori ini, dengan tegas, pembuat repositori ini tidak bertanggung jawab.
+> **WARNING**: The use of this script may involve legal and ethical considerations. The script is intended for educational and authorized testing purposes only. Unauthorized access to networks or systems is strictly prohibited. It is the user's responsibility to comply with local laws and regulations. The author is not liable for any misuse or damage caused by this script. By using this script, you acknowledge and agree to these terms.
 
 ## Peralatan
 
