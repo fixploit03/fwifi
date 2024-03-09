@@ -1,12 +1,13 @@
 #!/bin/bash
 
-g="\e[1;32m"
-r="\e[0m"
-c="\e[1;36m"
-
 if [ "$EUID" -ne 0 ]; then
   echo "[ERROR] This script must be run as root."
   exit 1
+fi
+
+if ! ping -c 1 google.com &> /dev/null; then
+    echo "[Error] No internet connection. Please connect to the internet to install fwifi."
+    exit 1
 fi
 
 apt-get update -y
@@ -62,4 +63,5 @@ autoreconf -i
 make
 make install
 ldconfig
-echo -e "${r}[ ${g}OK ${r}] fwifi successfully installed."
+echo "[ OK ] fwifi successfully installed."
+exit 0
