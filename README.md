@@ -11,16 +11,10 @@
 FWIFI is a powerful wireless security testing toolkit designed for educational and authorized testing purposes. It provides a collection of essential tools for assessing and securing Wi-Fi networks.
 
 ## Features
-
-- **Interactive Menu Interface:** Provides an interactive menu for various wireless security testing options.
-- **Monitor Mode:** Enables and disables monitor mode using `airmon-ng`.
-- **Capture Wi-Fi Data:** Captures Wi-Fi data using `airodump-ng` with user input for BSSID, channel, and output file.
-- **Capture Wi-Fi Data (besside-ng):** Alternative method for capturing Wi-Fi data using `besside-ng`.
-- **Inject Wi-Fi Packets:** Uses `aireplay-ng` to inject Wi-Fi packets, prompting the user for the MAC address of the access point.
-- **Check for Valid 4-way Frames:** Checks for valid 4-way frames using `cowpatty` with user input for the handshake file.
-- **Crack Wi-Fi Key (aircrack-ng):** Cracks Wi-Fi key using `aircrack-ng` with prompts for handshake file and wordlist.
-- **Crack Wi-Fi Key (cowpatty):** Alternative method for cracking Wi-Fi key using `cowpatty` with prompts for SSID, handshake file, and wordlist.
-- **Wordlist Options:** Provides predefined wordlist options or allows the user to input a custom wordlist.
+1. **Comprehensive Wi-Fi Security Assessment**: FWIFI includes a set of tools that allow you to perform a thorough assessment of Wi-Fi network security. From enabling monitor mode to capturing data and injecting packets, it covers a wide range of testing scenarios.
+2. **User-Friendly Menu System**: The script features an easy-to-use menu system, making it accessible for both beginners and experienced users. The menu allows you to perform various tasks such as updating, enabling monitor mode, capturing Wi-Fi data, and more with simple user inputs.
+3. **Flexible Wi-Fi Data Capture**: Choose between `airodump-ng` and `besside-ng` for capturing Wi-Fi data. This flexibility allows you to adapt the tool to different testing scenarios and preferences.
+4. **Efficient Wi-Fi Key Cracking**: FWIFI supports both `aircrack-ng` and `cowpatty` for Wi-Fi key cracking. Additionally, it provides a selection of predefined wordlists and the option to use a custom wordlist, enhancing the efficiency of the cracking process.
 
 ## Requirements
 
