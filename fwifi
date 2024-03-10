@@ -172,7 +172,7 @@ while true; do
       read -p "[Info] Press [Enter] to continue..."
       ;;
     7)
-      # Crack Wi-Fi Key
+      # Crack Wi-Fi Key with aircrack-ng
       read -p "[fwifi] Enter the handshake file name: " file_handshake
 
       while [[ ! -f "${file_handshake}" ]]; do
@@ -180,11 +180,49 @@ while true; do
           read -p "[fwifi] Enter the handshake file name: " file_handshake
       done
 
-      read -p "[fwifi] Enter the wordlist file name: " file_wordlist
+      echo ""
+      echo "     [Menu] Choose a wordlist"
+      echo ""
+      echo "     [1] RockYou.txt"
+      echo "     [2] Top 4800 Probable.txt"
+      echo "     [3] Wotabuhun.txt"
+      echo "     [4] Indonesian Wordlist.txt"
+      echo "     [5] Custom Wordlist"
+      echo ""
 
-      while [[ ! -f "${file_wordlist}" ]]; do
-          echo "[Error] Wordlist file '${file_wordlist}' not found."
-          read -p "[fwifi] Enter the wordlist file name: " file_wordlist
+      while true; do
+          read -p "[fwifi] Enter your choice(1-5): " choice
+
+         case "${choice}" in
+           1)
+            file_wordlist="/usr/share/fwifi/wordlists/rockyou.txt"
+            break
+            ;;
+          2)
+            file_wordlist="/usr/share/fwifi/wordlists/wordlist-top4800-probable.txt"
+            break
+            ;;
+          3)
+            file_wordlist="/usr/share/fwifi/wordlists/wotabuhun.txt"
+            break
+            ;;
+          4)
+            file_wordlist="/usr/share/fwifi/wordlists/indonesian-wordlist.lst"
+            break
+            ;;
+          5)
+            read -p "[fwifi] Enter the custom wordlist file name: " file_wordlist
+
+            while [[ ! -f "${file_wordlist}" ]]; do
+                echo "[Error] Wordlist file '${file_wordlist}' not found."
+                read -p "[fwifi] Enter the custom wordlist file name: " file_wordlist
+            done
+            break
+            ;;
+          *)
+            echo "[Error] Invalid choice."
+            ;;
+         esac
       done
 
       aircrack-ng -a2 -w "${file_wordlist}" "$file_handshake"
@@ -207,11 +245,49 @@ while true; do
           read -p "[fwifi] Enter the handshake file name: " file_handshake
       done
 
-      read -p "[fwifi] Enter the wordlist file name : " file_wordlist
+      echo ""
+      echo "     [Menu] Choose a wordlist"
+      echo ""
+      echo "     [1] RockYou.txt"
+      echo "     [2] Top 4800 Probable.txt"
+      echo "     [3] Wotabuhun.txt"
+      echo "     [4] Indonesian Wordlist.txt"
+      echo "     [5] Custom Wordlist"
+      echo ""
 
-      while [[ ! -f "${file_wordlist}" ]]; do
-          echo "[Error] Wordlist file '${file_wordlist}' not found."
-          read -p "[fwifi] Enter the wordlist file name: " file_wordlist
+      while true; do
+          read -p "[fwifi] Enter your choice(1-5): " choice
+
+         case "${choice}" in
+           1)
+            file_wordlist="/usr/share/fwifi/wordlists/rockyou.txt"
+            break
+            ;;
+          2)
+            file_wordlist="/usr/share/fwifi/wordlists/wordlist-top4800-probable.txt"
+            break
+            ;;
+          3)
+            file_wordlist="/usr/share/fwifi/wordlists/wotabuhun.txt"
+            break
+            ;;
+          4)
+            file_wordlist="/usr/share/fwifi/wordlists/indonesian-wordlist.lst"
+            break
+            ;;
+          5)
+            read -p "[fwifi] Enter the custom wordlist file name: " file_wordlist
+
+            while [[ ! -f "${file_wordlist}" ]]; do
+                echo "[Error] Wordlist file '${file_wordlist}' not found."
+                read -p "[fwifi] Enter the custom wordlist file name: " file_wordlist
+            done
+            break
+            ;;
+          *)
+            echo "[Error] Invalid choice."
+            ;;
+         esac
       done
 
       cowpatty -f "${file_wordlist}" -r "${file_handshake}" -s "${ssid}" -v
