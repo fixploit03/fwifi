@@ -27,8 +27,6 @@ FWIFI is a powerful wireless security testing toolkit designed for educational a
 
 ## Getting Started
 
-> Ensure you are in superuser (root) mode before installing FWIFI.
-
 ```
 # Clone the repository
 $ git clone https://github.com/rofidoang03/fwifi.git
