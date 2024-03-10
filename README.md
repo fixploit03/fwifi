@@ -19,16 +19,28 @@ FWIFI is a powerful wireless security testing toolkit designed for educational a
 
 ## Requirements
 
-- Debian-based Linux operating system
+- Linux operating system (Debian-based)
+- Bash shell
+- Root access (sudo privileges)
 - WiFi adapter (TPLINK TLWN723N)
 - Active internet connection
 
-## How to Install
+## Getting Started
 
 > Ensure you are in superuser (root) mode before installing FWIFI.
 
 ```
-apt-get update -y ; apt-get upgrade -y ; apt-get install git -y ; git clone https://github.com/rofidoang03/fwifi/ ; cd fwifi ; chmod +x build.sh ; ./build.sh
+# Clone the repository
+$ git clone https://github.com/rofidoang03/fwifi.git
+
+# Navigate to the FWIFI directory
+$ cd fwifi
+
+# Make the script executable
+$ chmod +x build.sh
+
+# Run the script
+$ ./build.sh
 ```
 
 ## How to Run
@@ -37,6 +49,9 @@ apt-get update -y ; apt-get upgrade -y ; apt-get install git -y ; git clone http
 fwifi -i <interface>
 ```
 
-## Responsible Usage
+## Contributions
 
-Explore FWIFI responsibly to enhance your Wi-Fi security knowledge. Exercise caution and ensure compliance with ethical and legal standards while using FWIFI.
+Contributions to FWIFI are welcome! If you have any suggestions, improvements, or bug fixes, feel free to submit a pull request on the GitHub repository.
+
+## License
+FWIFI is released under the MIT License. Please review the license before using or contributing to the project.
