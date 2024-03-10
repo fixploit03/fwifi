@@ -63,5 +63,8 @@ autoreconf -i
 make
 make install
 ldconfig
+cd ..
+chmod +x fwifi
+cp fwifi /usr/bin/
 echo "[ OK ] fwifi successfully installed."
 exit 0
