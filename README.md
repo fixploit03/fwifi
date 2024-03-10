@@ -6,15 +6,16 @@
 
 ## Overview
 
-FWIFI is a Bash script crafted to facilitate educational and authorized Wi-Fi penetration testing. It aims to contribute to a deeper understanding of Wi-Fi security by providing various functionalities tailored for diverse testing tasks.
+FWIFI is a powerful wireless security testing toolkit designed for educational and authorized testing purposes. It provides a collection of essential tools for assessing and securing Wi-Fi networks.
 
 ## Features
 
-- Enable Monitor Mode (airmon-ng).
-- Disable Monitor Mode (airmon-ng).
-- Capture Wi-Fi Data (airodump-ng).
-- Inject Wi-Fi Packets (aireplay-ng).
-- Crack Wi-Fi Key (aircrack-ng).
+- **User-friendly Interface**: FWIFI offers a simple and intuitive command-line interface, making it accessible for both beginners and experienced users.
+- **Monitor Mode Management**: Enable and disable monitor mode using airmon-ng, providing flexibility for various wireless testing scenarios.
+- **Wi-Fi Data Capture**: Utilize airodump-ng and besside-ng to capture Wi-Fi data, including essential information about Access Points (APs) and clients.
+- **Packet Injection**: Use aireplay-ng to inject Wi-Fi packets, allowing users to test network robustness and security.
+- **WPA/WPA2 Key Cracking**: Employ aircrack-ng for WPA/WPA2 key cracking, utilizing handshake files and wordlists for enhanced security assessment.
+- **Cowpatty Integration**: Integrate cowpatty to check for valid 4-way frames during the WPA/WPA2 key cracking process.
 
 ## Requirements
 
