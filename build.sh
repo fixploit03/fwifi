@@ -54,7 +54,7 @@ cat NetworkManager.conf > /etc/NetworkManager/NetworkManager.conf
 mkdir wordlists
 cd wordlists
 # Top 4800 Probable.txt
-https://raw.githubusercontent.com/derv82/wifite2/master/wordlist-top4800-probable.txt
+wget https://raw.githubusercontent.com/derv82/wifite2/master/wordlist-top4800-probable.txt
 # RockYou.txt
 wget https://github.com/praetorian-inc/Hob0Rules/raw/master/wordlists/rockyou.txt.gz
 gzip -d rockyou.txt.gz
