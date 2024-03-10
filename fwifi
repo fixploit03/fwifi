@@ -106,7 +106,7 @@ while true; do
       ;;
     5)
       # Crack Wi-Fi Key
-      read -p "[fwifi] Enter the handshake file name: " file_handshake
+      read -p "[fwifi] Enter the handshake file name (.cap): " file_handshake
       read -p "[fwifi] Enter the wordlist file: " file_wordlist
       aircrack-ng -a2 -w "${file_wordlist}" "$file_handshake"
       echo ""
@@ -114,7 +114,7 @@ while true; do
       ;;
     6)
       # Exit
-      echo "Thank you! Exiting the program."
+      echo "[info] Thank you! Exiting the program."
       exit 0
       ;;
     ls)
