@@ -64,7 +64,7 @@ while true; do
   echo "                                                                    "
   echo "              Github: https://github.com/rofidoang03/fwifi          "
   echo "                                                                    "
-  echo "     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ "
+  echo "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
   echo "                                                                    "
   echo "     [0] Update                                                     "
   echo "     [1] Enable Monitor Mode (airmon-ng)                            "
