@@ -1,22 +1,40 @@
 # FWIFI
 
-![](https://github.com/rofidoang03/fwifi/blob/main/fwifi.jpg)
+![FWIFI](https://github.com/rofidoang03/fwifi/blob/main/fwifi.jpg)
 
-> **WARNING**: The use of this script may involve legal and ethical considerations. The script is intended for educational and authorized testing purposes only. Unauthorized access to networks or systems is strictly prohibited. It is the user's responsibility to comply with local laws and regulations. The author is not liable for any misuse or damage caused by this script. By using this script, you acknowledge and agree to these terms.
+> **WARNING**: This script is designed exclusively for educational and authorized testing purposes. Unauthorized access to networks or systems is strictly prohibited. Users must adhere to local laws and regulations. The author is not liable for any misuse or damage caused by this script. By using FWIFI, you acknowledge and agree to these terms.
 
-FWIFI is a Bash script crafted with the primary aim of serving educational and authorized testing purposes, contributing to a deeper understanding of Wi-Fi security. It encompasses a range of functionalities tailored for diverse Wi-Fi penetration testing tasks.
+## Requirements
 
-## How to install
+- Linux (Debian-based)
+- Wifi adapter (TPLINK TLWN723N)
+- Internet Connection
+- Coffee ☕
 
-> To install FWIFI, make sure you are in superuser (root) mode.
+## Overview
 
-```
+FWIFI is a Bash script crafted to facilitate educational and authorized Wi-Fi penetration testing. It aims to contribute to a deeper understanding of Wi-Fi security by providing various functionalities tailored for diverse testing tasks.
+
+## Features
+
+- **Educational Tool:** Intended for learning and authorized testing purposes.
+- **Security Testing:** Enhance your understanding of Wi-Fi security.
+- **User Responsibility:** Users must comply with local laws and regulations.
+- **No Liability:** The author is not liable for any misuse or damage.
+
+## How to Install
+
+> Ensure you are in superuser (root) mode before installing FWIFI.
+
+```bash
 apt-get update -y ; apt-get upgrade -y ; apt-get install git -y ; git clone https://github.com/rofidoang03/fwifi/ ; cd fwifi ; chmod +x build.sh ; ./build.sh
-```
 
 ## How to Run
 
 ```
-Usage: fwifi -i <interface>
-Example: fwifi -i wlan0mon
+fwifi -i <interface>
 ```
+
+## Responsible Usage
+
+Explore FWIFI responsibly to enhance your Wi-Fi security knowledge. Exercise caution and ensure compliance with ethical and legal standards while using FWIFI.
