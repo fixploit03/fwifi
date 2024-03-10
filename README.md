@@ -49,6 +49,12 @@ $ ./build.sh
 fwifi -i <interface>
 ```
 
+## NOtes
+
+- Use this script responsibly and only on networks for which you have explicit permission to test security.
+- Misuse of this tool may lead to legal consequences.
+- The author does not assume any responsibility for misuse or damage caused by the script.
+
 ## Contributions
 
 Contributions to FWIFI are welcome! If you have any suggestions, improvements, or bug fixes, feel free to submit a pull request on the GitHub repository.
