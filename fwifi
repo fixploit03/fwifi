@@ -107,20 +107,10 @@ while true; do
           read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
       done
 
-      while [[ -z "${target_bssid}" ]]; do
-          echo "[Error] MAC Address of the Access Point cannot be empty."
-          read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
-      done
-
       read -p "[fwifi] Enter the channel: " channel
 
       while [[ ! "$channel" =~ ^[0-9]+$ ]]; do
           echo "[Error] Invalid channel. Please enter a valid numeric channel."
-          read -p "[fwifi] Enter the channel: " channel
-      done
-
-      while [[ -z "${channel}" ]]; do
-          echo "[Error] channel cannot be empty."
           read -p "[fwifi] Enter the channel: " channel
       done
 
@@ -140,20 +130,10 @@ while true; do
           read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
       done
 
-      while [[ -z "${target_bssid}" ]]; do
-          echo "[Error] MAC Address of the Access Point cannot be empty."
-          read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
-      done
-
       read -p "[fwifi] Enter the channel: " channel
 
       while [[ ! "$channel" =~ ^[0-9]+$ ]]; do
           echo "[Error] Invalid channel. Please enter a valid numeric channel."
-          read -p "[fwifi] Enter the channel: " channel
-      done
-
-      while [[ -z "${channel}" ]]; do
-          echo "[Error] channel cannot be empty."
           read -p "[fwifi] Enter the channel: " channel
       done
 
@@ -167,11 +147,6 @@ while true; do
 
       while [[ ! "${ap}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; do
           echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
-          read -p "[fwifi] Enter the MAC Address of the Access Point: " ap
-      done
-
-      while [[ -z "${ap}" ]]; do
-          echo "[Error] MAC Address of the Access Point cannot be empty."
           read -p "[fwifi] Enter the MAC Address of the Access Point: " ap
       done
 
