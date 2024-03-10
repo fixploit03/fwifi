@@ -83,6 +83,7 @@ while true; do
   case $choice in
     0)
       # Update
+      echo ""
       apt-get update -y
       echo ""
       read -p "[Info] Press [Enter] to continue..."
@@ -176,7 +177,7 @@ while true; do
           read -p "[fwifi] Enter the MAC Address of the Access Point: " ap
       done
 
-
+      echo ""
       aireplay-ng -0 0 -a "${ap}" "${interface}"
       echo ""
       read -p "[Info] Press [Enter] to continue..."
