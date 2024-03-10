@@ -56,12 +56,15 @@ while true; do
   echo "     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ "
   echo "                                                                    "
   echo "     [0] Update                                                     "
-  echo "     [1] Enable Monitor Mode                                        "
-  echo "     [2] Disable Monitor Mode                                       "
-  echo "     [3] Capture Wi-Fi Data                                         "
-  echo "     [4] Inject Wi-Fi Packets                                       "
-  echo "     [5] Crack Wi-Fi Key                                            "
-  echo "     [6] Exit                                                       "
+  echo "     [1] Enable Monitor Mode (airmon-ng)                            "
+  echo "     [2] Disable Monitor Mode (airmon-ng)                           "
+  echo "     [3] Capture Wi-Fi Data (airodump-ng)                           "
+  echo "     [4] Capture Wi-Fi Data (besside-ng)                            "
+  echo "     [5] Inject Wi-Fi Packets (aireplay-ng)                         "
+  echo "     [6] Check for valid 4-way frames (cowpatty)                    "
+  echo "     [7] Crack Wi-Fi Key (aircrack-ng)                              "
+  echo "     [8] Crack Wi-Fi Key (cowpatty)                                 "
+  echo "    [99] Exit                                                       "
   echo "                                                                    "
   # Prompt user input
   read -p "[fwifi] " choice
@@ -91,30 +94,147 @@ while true; do
       airodump-ng "${interface}"
       echo ""
       read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
+
+      while [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; do
+          echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
+          read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
+      done
+
+      while [[ -z "${target_bssid}" ]]; do
+          echo "[Error] MAC Address of the Access Point cannot be empty."
+          read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
+      done
+
       read -p "[fwifi] Enter the channel: " channel
+
+      while [[ ! "$channel" =~ ^[0-9]+$ ]]; do
+          echo "[Error] Invalid channel. Please enter a valid numeric channel."
+          read -p "[fwifi] Enter the channel: " channel
+      done
+
+      while [[ -z "${channel}" ]]; do
+          echo "[Error] channel cannot be empty."
+          read -p "[fwifi] Enter the channel: " channel
+      done
+
       read -p "[fwifi] Enter the output file name: " output_file
       airodump-ng --bssid "${target_bssid}" --channel "${channel}" -w "${output_file}" "${interface}"
       echo ""
       read -p "[Info] Press [Enter] to continue..."
       ;;
     4)
-      # Inject Wi-Fi Packets
-      read -p "[fwifi] Enter the MAC Address of the Access Point: " ap
-      aireplay-ng -0 0 -a "${ap}" "${interface}"
+      # Capture Wi-Fi Data (besside-ng)
+      airodump-ng "${interface}"
+      echo ""
+      read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
+
+      while [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; do
+          echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
+          read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
+      done
+
+      while [[ -z "${target_bssid}" ]]; do
+          echo "[Error] MAC Address of the Access Point cannot be empty."
+          read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
+      done
+
+      read -p "[fwifi] Enter the channel: " channel
+
+      while [[ ! "$channel" =~ ^[0-9]+$ ]]; do
+          echo "[Error] Invalid channel. Please enter a valid numeric channel."
+          read -p "[fwifi] Enter the channel: " channel
+      done
+
+      while [[ -z "${channel}" ]]; do
+          echo "[Error] channel cannot be empty."
+          read -p "[fwifi] Enter the channel: " channel
+      done
+
+      besside-ng -b "${target_bssid}" -c "${channel}" -W -vv "${interface}"
       echo ""
       read -p "[Info] Press [Enter] to continue..."
       ;;
     5)
-      # Crack Wi-Fi Key
-      read -p "[fwifi] Enter the handshake file name (.cap): " file_handshake
-      read -p "[fwifi] Enter the wordlist file: " file_wordlist
-      aircrack-ng -a2 -w "${file_wordlist}" "$file_handshake"
+      # Inject Wi-Fi Packets
+      read -p "[fwifi] Enter the MAC Address of the Access Point: " ap
+
+      while [[ ! "${ap}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; do
+          echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
+          read -p "[fwifi] Enter the MAC Address of the Access Point: " ap
+      done
+
+      while [[ -z "${ap}" ]]; do
+          echo "[Error] MAC Address of the Access Point cannot be empty."
+          read -p "[fwifi] Enter the MAC Address of the Access Point: " ap
+      done
+
+
+      aireplay-ng -0 0 -a "${ap}" "${interface}"
       echo ""
       read -p "[Info] Press [Enter] to continue..."
       ;;
     6)
+      # Check for valid 4-way frames
+      read -p "[fwifi] Enter the handshake file name: " file_handshake
+
+      while [[ ! -f "${file_handshake}" ]]; do
+          echo "[Error] Handshake file '${file_handshake}' not found."
+          read -p "[fwifi] Enter the handshake file name: " file_handshake
+      done
+
+      cowpatty -c -r "${file_handshake}"
+      read -p "[Info] Press [Enter] to continue..."
+      ;;
+    7)
+      # Crack Wi-Fi Key
+      read -p "[fwifi] Enter the handshake file name: " file_handshake
+
+      while [[ ! -f "${file_handshake}" ]]; do
+          echo "[Error] Handshake file '${file_handshake}' not found."
+          read -p "[fwifi] Enter the handshake file name: " file_handshake
+      done
+
+      read -p "[fwifi] Enter the wordlist file name: " file_wordlist
+
+      while [[ ! -f "${file_wordlist}" ]]; do
+          echo "[Error] Wordlist file '${file_wordlist}' not found."
+          read -p "[fwifi] Enter the wordlist file name: " file_wordlist
+      done
+
+      aircrack-ng -a2 -w "${file_wordlist}" "$file_handshake"
+      echo ""
+      read -p "[Info] Press [Enter] to continue..."
+      ;;
+    8)
+      # Crack Wi-Fi Key cowpatty
+      read -p "[fwifi] Enter the Network SSID (enclose in quotes if SSID includes spaces): " ssid
+
+      while [[ -z "${ssid}" ]]; do
+          echo "[Error] SSID Network cannot be empty."
+          read -p "[fwifi] Enter the Network SSID (enclose in quotes if SSID includes spaces): " ssid
+      done
+
+      read -p "[fwifi] Enter the handshake file name: " file_handshake
+
+      while [[ ! -f "${file_handshake}" ]]; do
+          echo "[Error] Handshake file '${file_handshake}' not found."
+          read -p "[fwifi] Enter the handshake file name: " file_handshake
+      done
+
+      read -p "[fwifi] Enter the wordlist file name : " file_wordlist
+
+      while [[ ! -f "${file_wordlist}" ]]; do
+          echo "[Error] Wordlist file '${file_wordlist}' not found."
+          read -p "[fwifi] Enter the wordlist file name: " file_wordlist
+      done
+
+      cowpatty -f "${file_wordlist}" -r "${file_handshake}" -s "${ssid}" -v
+      echo ""
+      read -p "[Info] Press [Enter] to continue..."
+      ;;
+    99)
       # Exit
-      echo "[info] Thank you! Exiting the program."
+      echo "Thank you! Exiting the program."
       exit 0
       ;;
     ls)
