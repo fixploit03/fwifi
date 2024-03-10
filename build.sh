@@ -57,9 +57,11 @@ cd wordlists
 https://raw.githubusercontent.com/derv82/wifite2/master/wordlist-top4800-probable.txt
 # RockYou.txt
 wget https://github.com/praetorian-inc/Hob0Rules/raw/master/wordlists/rockyou.txt.gz
-# Wotabuhun.txt
-https://raw.githubusercontent.com/FII14/WOTABUHUN/main/wotabuhun.txt
 gzip -d rockyou.txt.gz
+# Wotabuhun.txt
+wget https://raw.githubusercontent.com/FII14/WOTABUHUN/main/wotabuhun.txt
+# Indonesian Wordlist
+wget https://raw.githubusercontent.com/mychaelgo/indonesia-wordlist/master/indonesian-wordlist.lst
 cd ..
 git clone https://github.com/aircrack-ng/aircrack-ng
 cd aircrack-ng
