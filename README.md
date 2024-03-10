@@ -10,12 +10,15 @@ FWIFI is a powerful wireless security testing toolkit designed for educational a
 
 ## Features
 
-- **User-friendly Interface**: FWIFI offers a simple and intuitive command-line interface, making it accessible for both beginners and experienced users.
-- **Monitor Mode Management**: Enable and disable monitor mode using airmon-ng, providing flexibility for various wireless testing scenarios.
-- **Wi-Fi Data Capture**: Utilize airodump-ng and besside-ng to capture Wi-Fi data, including essential information about Access Points (APs) and clients.
-- **Packet Injection**: Use aireplay-ng to inject Wi-Fi packets, allowing users to test network robustness and security.
-- **WPA/WPA2 Key Cracking**: Employ aircrack-ng for WPA/WPA2 key cracking, utilizing handshake files and wordlists for enhanced security assessment.
-- **Cowpatty Integration**: Integrate cowpatty to check for valid 4-way frames during the WPA/WPA2 key cracking process.
+- **Interactive Menu Interface:** Provides an interactive menu for various wireless security testing options.
+- **Monitor Mode:** Enables and disables monitor mode using `airmon-ng`.
+- **Capture Wi-Fi Data:** Captures Wi-Fi data using `airodump-ng` with user input for BSSID, channel, and output file.
+- **Capture Wi-Fi Data (besside-ng):** Alternative method for capturing Wi-Fi data using `besside-ng`.
+- **Inject Wi-Fi Packets:** Uses `aireplay-ng` to inject Wi-Fi packets, prompting the user for the MAC address of the access point.
+- **Check for Valid 4-way Frames:** Checks for valid 4-way frames using `cowpatty` with user input for the handshake file.
+- **Crack Wi-Fi Key (aircrack-ng):** Cracks Wi-Fi key using `aircrack-ng` with prompts for handshake file and wordlist.
+- **Crack Wi-Fi Key (cowpatty):** Alternative method for cracking Wi-Fi key using `cowpatty` with prompts for SSID, handshake file, and wordlist.
+- **Wordlist Options:** Provides predefined wordlist options or allows the user to input a custom wordlist.
 
 ## Requirements
 
