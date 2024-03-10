@@ -28,6 +28,9 @@ FWIFI is a powerful wireless security testing toolkit designed for educational a
 ## Getting Started
 
 ```
+# Navigate to the share directory
+# cd /usr/share
+
 # Clone the repository
 $ git clone https://github.com/rofidoang03/fwifi.git
 
