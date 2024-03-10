@@ -2,6 +2,8 @@
 
 ![FWIFI](https://github.com/rofidoang03/fwifi/blob/main/fwifi.jpg)
 
+<p align="center">- since 2021 -</p>
+
 > **WARNING**: This script is designed exclusively for educational and authorized testing purposes. Unauthorized access to networks or systems is strictly prohibited. Users must adhere to local laws and regulations. The author is not liable for any misuse or damage caused by this script. By using FWIFI, you acknowledge and agree to these terms.
 
 ## Overview
@@ -25,7 +27,7 @@ FWIFI is a powerful wireless security testing toolkit designed for educational a
 - Linux operating system (Debian-based)
 - Bash shell
 - Root access (sudo privileges)
-- WiFi adapter (TPLINK TLWN723N)
+- WiFi adapter (TPLINK TLWN722N)
 - Active internet connection
 
 ## Getting Started
