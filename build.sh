@@ -1,53 +1,25 @@
 #!/bin/bash
 
+# Check if script is run as root
 if [ "$EUID" -ne 0 ]; then
   echo "[ERROR] This script must be run as root."
   exit 1
 fi
 
+# Check internet connection
 if ! ping -c 1 google.com &> /dev/null; then
     echo "[Error] No internet connection. Please connect to the internet to install fwifi."
     exit 1
 fi
 
+# Update and install dependencies
 apt-get update -y
 apt-get upgrade -y
 apt-get full-upgrade -y
-apt-get install wget -y
-apt-get install gzip -y
-apt-get install bc -y
-apt-get install libgmp-dev -y
-apt-get install libbz2-dev -y
-apt-get install yasm -y
-apt-get install build-essential -y
-apt-get install libelf-dev -y
-apt-get install linux-headers-$(uname -r) -y
-apt-get install autoconf -y
-apt-get install automake -y
-apt-get install libtool -y
-apt-get install pkg-config -y
-apt-get install libnl-3-dev -y
-apt-get install libnl-genl-3-dev -y
-apt-get install libssl-dev -y
-apt-get install ethtool -y
-apt-get install shtool -y
-apt-get install rfkill -y 
-apt-get install zlib1g-dev -y
-apt-get install libpcap-dev -y
-apt-get install libsqlite3-dev -y
-apt-get install libpcre2-dev -y
-apt-get install libhwloc-dev -y
-apt-get install libcmocka-dev -y
-apt-get install hostapd -y
-apt-get install wpasupplicant -y
-apt-get install tcpdump -y
-apt-get install screen -y
-apt-get install iw -y
-apt-get install usbutils -y
-apt-get install expect -y
-apt-get install cowpatty -y
-# install wifi driver tplink-tlwn722n
-#---------------------------------------
+apt-get install wget gzip bc libgmp-dev libbz2-dev yasm build-essential libelf-dev linux-headers-$(uname -r) autoconf automake libtool pkg-config libnl-3-dev libnl-genl-3-dev libssl-dev ethtool shtool rfkill zlib1g-dev libpcap-dev libsqlite3-dev libpcre2-dev libhwloc-dev libcmocka-dev hostapd wpasupplicant tcpdump screen iw usbutils expect cowpatty -y
+
+# Install WiFi driver tplink-tlwn722n
+# Uncomment the following lines if needed
 # git clone https://github.com/KanuX-14/rtl8188eus.git
 # cd rtl8188eus
 # echo 'blacklist r8188eu' | sudo tee -a '/etc/modprobe.d/realtek.conf'
@@ -56,19 +28,22 @@ apt-get install cowpatty -y
 # make install
 # modprobe 8188eu
 # cd ..
+
+# Configure NetworkManager
+# Uncomment the following line if needed
 # cat NetworkManager.conf > /etc/NetworkManager/NetworkManager.conf
+
+# Create wordlists directory and download wordlists
 mkdir wordlists
 cd wordlists
-# Top 4800 Probable.txt
 wget https://raw.githubusercontent.com/derv82/wifite2/master/wordlist-top4800-probable.txt
-# RockYou.txt
 wget https://github.com/praetorian-inc/Hob0Rules/raw/master/wordlists/rockyou.txt.gz
 gzip -d rockyou.txt.gz
-# Wotabuhun.txt
 wget https://raw.githubusercontent.com/FII14/WOTABUHUN/main/wotabuhun.txt
-# Indonesian Wordlist
 wget https://raw.githubusercontent.com/mychaelgo/indonesia-wordlist/master/indonesian-wordlist.lst
 cd ..
+
+# Clone and install aircrack-ng
 git clone https://github.com/aircrack-ng/aircrack-ng
 cd aircrack-ng
 autoreconf -i
@@ -77,11 +52,16 @@ make
 make install
 ldconfig
 cd ..
+
+# Clone and install john the ripper
 git clone https://github.com/openwall/john.git
 cd john/src
 ./configure && make -s clean && make -sj4
 cd ../..
+
+# Set execute permission for fwifi and copy to /usr/bin/
 chmod +x fwifi
 cp fwifi /usr/bin/
+
 echo "[ OK ] fwifi successfully installed."
 exit 0
