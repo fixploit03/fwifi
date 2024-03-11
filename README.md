@@ -49,6 +49,14 @@ fwifi -i <interface>
 
 <p align="center">[ Crack Wi-Fi Key with Aircrack-ng ]</p>
 
+![](https://github.com/rofidoang03/fwifi/blob/main/cowpatty.gif)
+
+<p align="center">[ Crack Wi-Fi Key with Cowpatty ]</p>
+
+![](https://github.com/rofidoang03/fwifi/blob/main/john%20the%20ripper.gif)
+
+<p align="center">[ Crack Wi-Fi Key with John The Ripper ]</p>
+
 ## Notes
 
 - Use this script responsibly and only on networks for which you have explicit permission to test security.
