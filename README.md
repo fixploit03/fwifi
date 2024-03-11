@@ -6,6 +6,16 @@
 
 > **WARNING**: This script is designed exclusively for educational and authorized testing purposes. Unauthorized access to networks or systems is strictly prohibited. Users must adhere to local laws and regulations. The author is not liable for any misuse or damage caused by this script. By using FWIFI, you acknowledge and agree to these terms.
 
+## Daftar Isi
+- [Overview](#instalasi)
+- [Requirements](#penggunaan)
+- [Getting Started](#kontribusi)
+- [How to Run](#lisensi)
+- [Demos](#instalasi)
+- [Notes](#penggunaan)
+- [Contributions](#kontribusi)
+- [License](#lisensi)
+
 ## Overview
 
 FWIFI is a powerful wireless security testing toolkit designed for educational and authorized testing purposes. It provides a collection of essential tools for assessing and securing Wi-Fi networks.
@@ -43,7 +53,6 @@ fwifi -i <interface>
 ```
 
 ## Demos
-
 
 ![](https://github.com/rofidoang03/fwifi/blob/main/aircrack-ng.gif)
 
