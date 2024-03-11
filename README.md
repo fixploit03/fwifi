@@ -7,14 +7,14 @@
 > **WARNING**: This script is designed exclusively for educational and authorized testing purposes. Unauthorized access to networks or systems is strictly prohibited. Users must adhere to local laws and regulations. The author is not liable for any misuse or damage caused by this script. By using FWIFI, you acknowledge and agree to these terms.
 
 ## Table of Contents
-- [Overview](https://github.com/rofidoang03/fwifi/blob/main/README.md#overview)
-- [Requirements](https://github.com/rofidoang03/fwifi/blob/main/README.md#requirements)
+- [Overview](https://github.com/rofidoang03/fwifi/tree/main#overview)
+- [Requirements](https://github.com/rofidoang03/fwifi/tree/main#requirements)
 - [Getting Started](https://github.com/rofidoang03/fwifi/tree/main#getting-started)
 - [How to Run](https://github.com/rofidoang03/fwifi/tree/main#how-to-run)
-- [Demos](https://github.com/rofidoang03/fwifi/blob/main/README.md#demos)
-- [Notes](https://github.com/rofidoang03/fwifi/blob/main/README.md#notes)
-- [Contributions](https://github.com/rofidoang03/fwifi/blob/main/README.md#contributions)
-- [License](https://github.com/rofidoang03/fwifi/blob/main/README.md#license)
+- [Demos](https://github.com/rofidoang03/fwifi/tree/main#demos)
+- [Notes](https://github.com/rofidoang03/fwifi/tree/main#notes)
+- [Contributions](https://github.com/rofidoang03/fwifi/tree/main#contribution)
+- [License](https://github.com/rofidoang03/fwifi/tree/main#license)
 
 ## Overview
 
