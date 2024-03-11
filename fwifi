@@ -269,6 +269,7 @@ while true; do
       echo ""
       echo "[1] Aircrack-ng"
       echo "[2] Cowpatty"
+      echo "[3] John The Ripper"
       echo ""
 
       while true; do
@@ -290,6 +291,20 @@ while true; do
               done
               clear
               cowpatty -r "${file_handshake}" -s "${ssid}" -f "${file_wordlist}"
+              echo ""
+              read -p "[Info] Press [Enter] to continue..."
+              break
+              ;;
+            3)
+              # convert ke format hccapx
+              aircrack-ng -J "${file_handshake}" "${file_handshake}"
+              # conver hccapx ke file hash
+              /usr/share/fwifi/john/run/./hccap2john "${file_handshake}.hccap" > "${file_handshake}.fwifi"
+              # hash file
+              hash_file="${file_handshake}.fwifi"
+              # crack wpa key with john
+              /usr/share/fwifi/john/run/./john --format="wpapsk" --wordlist="${file_wordlist}" "${hash_file}"
+              /usr/share/fwifi/john/run/./john --show "${hash_file}"
               echo ""
               read -p "[Info] Press [Enter] to continue..."
               break
