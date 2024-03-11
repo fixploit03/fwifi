@@ -1,3 +1,6 @@
+![Developed on Linux Lite](https://img.shields.io/badge/Developed%20on-black?labelColor=black&logo=linux&logoColor=yellow&style=for-the-badge)
+[![Tutorial on YouTube](https://img.shields.io/badge/Tutorial%20on-black?labelColor=black&logo=youtube&logoColor=red&style=for-the-badge)](https://youtu.be/-igZXiX3wu8?si=yojn9LKvsVkwZqwD)
+
 # FWIFI
 
 ![FWIFI](https://github.com/rofidoang03/fwifi/blob/main/fwifi2.png)
