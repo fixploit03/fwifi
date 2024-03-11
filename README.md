@@ -49,7 +49,7 @@ $ ./build.sh
 fwifi -i <interface>
 ```
 
-## NOtes
+## Notes
 
 - Use this script responsibly and only on networks for which you have explicit permission to test security.
 - Misuse of this tool may lead to legal consequences.
