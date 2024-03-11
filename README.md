@@ -1,5 +1,6 @@
-![Developed on Linux Lite](https://img.shields.io/badge/Developed%20on-black?labelColor=black&logo=linux&logoColor=yellow&style=for-the-badge)
-[![Tutorial on YouTube](https://img.shields.io/badge/Tutorial%20on-black?labelColor=black&logo=youtube&logoColor=red&style=for-the-badge)](https://youtu.be/-igZXiX3wu8?si=yojn9LKvsVkwZqwD)
+![Developed on Linux](https://img.shields.io/badge/Developed%20on-Linux-yellow?&logo=linux&logoColor=yellow&style=for-the-badge)
+![Maintained: Yes](https://img.shields.io/badge/Maintained-Yes-brightgreen?logo=checkmarx&style=for-the-badge)
+[![Tutorial on: YouTube](https://img.shields.io/badge/Tutorial%20on-YouTube-red?&logo=youtube&logoColor=red&style=for-the-badge)](https://youtu.be/-igZXiX3wu8?si=yojn9LKvsVkwZqwD)
 
 # FWIFI
 
