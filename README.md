@@ -1,6 +1,6 @@
 # FWIFI
 
-![FWIFI](https://github.com/rofidoang03/fwifi/blob/main/fwifi.jpg)
+![FWIFI](https://github.com/rofidoang03/fwifi/blob/main/fwifi2.png)
 
 <p align="center">- since 2021 -</p>
 
