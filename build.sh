@@ -16,6 +16,9 @@ apt-get full-upgrade -y
 apt-get install wget -y
 apt-get install gzip -y
 apt-get install bc -y
+apt-get install libgmp-dev -y
+apt-get install libbz2-dev -y
+apt-get install yasm -y
 apt-get install build-essential -y
 apt-get install libelf-dev -y
 apt-get install linux-headers-$(uname -r) -y
@@ -73,5 +76,11 @@ ldconfig
 cd ..
 chmod +x fwifi
 cp fwifi /usr/bin/
+git clone https://github.com/openwall/john.git
+cd john
+./configure && make -s clean && make -sj4
+echo 'export PATH=$PATH:/usr/share/fwifi/john/run' >> ~/.bashrc
+echo 'alias john="/usr/share/fwifi/john/run/john"' >> ~/.bashrc
+source ~/.bashrc
 echo "[ OK ] fwifi successfully installed."
 exit 0
