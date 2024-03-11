@@ -79,8 +79,5 @@ cp fwifi /usr/bin/
 git clone https://github.com/openwall/john.git
 cd john/src
 ./configure && make -s clean && make -sj4
-echo 'export PATH=$PATH:/usr/share/fwifi/john/run' >> ~/.bashrc
-echo 'alias john="/usr/share/fwifi/john/run/john"' >> ~/.bashrc
-source ~/.bashrc
 echo "[ OK ] fwifi successfully installed."
 exit 0
