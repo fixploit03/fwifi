@@ -45,15 +45,18 @@ apt-get install screen -y
 apt-get install iw -y
 apt-get install usbutils -y
 apt-get install expect -y
-git clone https://github.com/KanuX-14/rtl8188eus.git
-cd rtl8188eus
-echo 'blacklist r8188eu' | sudo tee -a '/etc/modprobe.d/realtek.conf'
-echo 'blacklist rtl8xxxu' | sudo tee -a '/etc/modprobe.d/realtek.conf'
-make
-make install
-modprobe 8188eu
-cd ..
-cat NetworkManager.conf > /etc/NetworkManager/NetworkManager.conf
+apt-get install cowpatty -y
+# install wifi driver tplink-tlwn722n
+#---------------------------------------
+# git clone https://github.com/KanuX-14/rtl8188eus.git
+# cd rtl8188eus
+# echo 'blacklist r8188eu' | sudo tee -a '/etc/modprobe.d/realtek.conf'
+# echo 'blacklist rtl8xxxu' | sudo tee -a '/etc/modprobe.d/realtek.conf'
+# make
+# make install
+# modprobe 8188eu
+# cd ..
+# cat NetworkManager.conf > /etc/NetworkManager/NetworkManager.conf
 mkdir wordlists
 cd wordlists
 # Top 4800 Probable.txt
@@ -74,10 +77,11 @@ make
 make install
 ldconfig
 cd ..
-chmod +x fwifi
-cp fwifi /usr/bin/
 git clone https://github.com/openwall/john.git
 cd john/src
 ./configure && make -s clean && make -sj4
+cd ../..
+chmod +x fwifi
+cp fwifi /usr/bin/
 echo "[ OK ] fwifi successfully installed."
 exit 0
