@@ -42,6 +42,13 @@ $ ./build.sh
 fwifi -i <interface>
 ```
 
+## Demos
+
+
+![](https://github.com/rofidoang03/fwifi/blob/main/aircrack-ng.gif)
+
+<p align="center">[ Crack Wi-Fi Key with Aircrack-ng ]</p>
+
 ## Notes
 
 - Use this script responsibly and only on networks for which you have explicit permission to test security.
