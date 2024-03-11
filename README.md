@@ -1,7 +1,5 @@
 ![Developed on Linux](https://img.shields.io/badge/Developed%20on-Linux-yellow?&logo=linux&logoColor=yellow&style=flat)
 ![Maintained: Yes](https://img.shields.io/badge/Maintained-Yes-brightgreen?logo=checkmarx&style=flat)
-![Repo Size](https://img.shields.io/github/repo-size/rofidoang03/fwifi?style=flat)
-[![Tutorial on: YouTube](https://img.shields.io/badge/Tutorial%20on-YouTube-red?&logo=youtube&logoColor=red&style=flat)](https://youtu.be/-igZXiX3wu8?si=yojn9LKvsVkwZqwD)
 
 # FWIFI
 
