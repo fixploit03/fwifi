@@ -53,6 +53,18 @@ if ! ip link show "$interface" &>/dev/null; then
   exit 1
 fi
 
+clear
+echo "FWIFI is a powerful wireless security testing toolkit designed for educational and authorized "
+echo "testing purposes. It provides a collection of essential tools for assessing and securing Wi-Fi"
+echo "networks.                                                                                     "
+echo "                                                                                              "
+echo "WARNING: This script is designed exclusively for educational and authorized testing purposes. "
+echo "Unauthorized access to networks or systems is strictly prohibited. Users must adhere to local "
+echo "laws and regulations. The author is not liable for any misuse or damage caused by this script."
+echo "By using FWIFI, you acknowledge and agree to these terms.                                     "
+echo ""
+read -p "[Info] Press [Enter] to continue..."
+
 while true; do
   clear
   echo ""
