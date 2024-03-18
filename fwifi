@@ -225,6 +225,12 @@ while true; do
       # Check for valid 4-way frames
       read -p "[fwifi] Enter the handshake file name: " file_handshake
 
+      # Check if the specified file is not a .cap file
+      if [[ ! "${file_handshake}" =~ \.cap$ ]]; then
+          echo "[Error] Invalid file format. Please provide a valid .cap file."
+          # exit 1
+      fi
+
       while [[ ! -f "${file_handshake}" ]]; do
           echo "[Error] Handshake file '${file_handshake}' not found."
           read -p "[fwifi] Enter the handshake file name: " file_handshake
