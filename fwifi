@@ -10,60 +10,29 @@
 # By using FWIFI, you acknowledge and agree to these terms.
 # ----------------------------------------------------------------------------------------------
 
-# Check if script is run as root
-if [ "$EUID" -ne 0 ]; then
-  echo "[Error] This script must be run as root."
-  exit 1
-fi
+# Function to display intro text with typing effect
+display_intro() {
+    local intro_text=(
+        "FWIFI is a powerful wireless security testing toolkit designed for educational and authorized "
+        "testing purposes. It provides a collection of essential tools for assessing and securing Wi-Fi"
+        "networks."
+        ""
+        "WARNING: This script is designed exclusively for educational and authorized testing purposes. "
+        "Unauthorized access to networks or systems is strictly prohibited. Users must adhere to local "
+        "laws and regulations. The author is not liable for any misuse or damage caused by this script."
+        "By using FWIFI, you acknowledge and agree to these terms."
+        ""
+    )
 
-# Default network interface
-interface=""
+    for line in "${intro_text[@]}"; do
+        type_effect "$line" 0.1
+    done
+}
 
-# Parse command-line options
-while getopts "i:-:" opt; do
-  case $opt in
-    i)
-      # Specify the network interface
-      interface="$OPTARG"
-      ;;
-    -)
-      case "${OPTARG}" in
-        interface)
-          # Extended option to specify the network interface
-          interface="${!OPTIND}"
-          OPTIND=$((OPTIND + 1))
-          ;;
-        *)
-          echo "[Error] Invalid option: --${OPTARG}"
-          exit 1
-          ;;
-      esac
-      ;;
-    \?)
-      echo "[Error] Invalid option: -$OPTARG"
-      exit 1
-      ;;
-  esac
-done
-
-# Check if a network interface is specified
-if [ -z "$interface" ]; then
-  echo "[Error] Interface is not specified. Please use the -i or --interface option."
-  exit 1
-fi
-
-# Check if the specified network interface exists
-if ! ip link show "$interface" &>/dev/null; then
-  echo "[Error] Interface '$interface' not found."
-  exit 1
-fi
-
-# Clear the terminal screen
-clear
-
+# Function for typing effect
 type_effect() {
-    text="$1"
-    delay="$2"
+    local text="$1"
+    local delay="$2"
 
     for ((i = 0; i < ${#text}; i++)); do
         echo -n "${text:$i:1}"
@@ -72,317 +41,225 @@ type_effect() {
     echo ""
 }
 
-# Display FWIFI introduction
-intro_text=(
-    "FWIFI is a powerful wireless security testing toolkit designed for educational and authorized "
-    "testing purposes. It provides a collection of essential tools for assessing and securing Wi-Fi"
-    "networks."
-    ""
-    "WARNING: This script is designed exclusively for educational and authorized testing purposes. "
-    "Unauthorized access to networks or systems is strictly prohibited. Users must adhere to local "
-    "laws and regulations. The author is not liable for any misuse or damage caused by this script."
-    "By using FWIFI, you acknowledge and agree to these terms."
-    ""
-)
+# Function for main menu
+main_menu() {
+    echo ""
+    echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    echo "  _______      ________      _______      _______      _______  "
+    echo " |    ___|    |  |  |  |    |_     _|    |    ___|    |_     _| "
+    echo " |    ___|    |  |  |  |     _|   |_     |    ___|     _|   |_  "
+    echo " |___|        |________|    |_______|    |___|        |_______| "
+    echo "                                                                "
+    echo "          Github: https://github.com/rofidoang03/fwifi          "
+    echo "                                                                "
+    echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    echo "                                                                "
+    echo " [Menu] FWIFI                                                   "
+    echo "                                                                "
+    echo " [0] Update                                                     "
+    echo " [1] Enable Monitor Mode                                        "
+    echo " [2] Disable Monitor Mode                                       "
+    echo " [3] Capture Wi-Fi Data                                         "
+    echo " [4] Inject Wi-Fi Packets                                       "
+    echo " [5] Check for valid 4-way frames                               "
+    echo " [6] Crack Wi-Fi Key                                            "
+    echo "[99] Exit                                                       "
+    echo "                                                                "
+    # Prompt user input
+    read -p "[fwifi] " choice
 
-#for line in "${intro_text[@]}"; do
-#    type_effect "$line" 0.1
-#done
+    case $choice in
+        0) update_system ;;
+        1) enable_monitor_mode ;;
+        2) disable_monitor_mode ;;
+        3) capture_wifi_data ;;
+        4) inject_wifi_packets ;;
+        5) check_4way_frames ;;
+        6) crack_wifi_key ;;
+        99) exit_program ;;
+        ls) list_files ;;
+        *) invalid_choice ;;
+    esac
+}
 
-read -p "[Info] Press [Enter] to continue..."
+# Function to update system packages
+update_system() {
+    echo ""
+    apt-get update -y
+    echo ""
+    read -p "[Info] Press [Enter] to continue..."
+}
 
-# Main menu loop
+# Function to enable monitor mode
+enable_monitor_mode() {
+    echo ""
+    airmon-ng check kill
+    airmon-ng start "${interface}"
+    echo ""
+    read -p "[Info] Press [Enter] to continue..."
+}
+
+# Function to disable monitor mode
+disable_monitor_mode() {
+    echo ""
+    airmon-ng stop "${interface}"
+    echo ""
+    read -p "[Info] Press [Enter] to continue..."
+}
+
+# Function to capture Wi-Fi data
+capture_wifi_data() {
+    echo ""
+    echo "[Menu] Choose Wi-Fi Data Capture Tool"
+    echo ""
+    echo "[1] Airodump-ng"
+    echo "[2] Besside-ng"
+    echo ""
+
+    while true; do
+        read -p "[fwifi] Enter your choice (1-2): " capture_tool
+
+        case "${capture_tool}" in
+            1) airodump_capture ;;
+            2) besside_capture ;;
+            *) echo "[Error] Invalid choice." ;;
+        esac
+    done
+}
+
+# Function to capture Wi-Fi data using Airodump-ng
+airodump_capture() {
+    airodump-ng "${interface}"
+    echo ""
+
+    read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
+
+    if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
+        echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
+    else
+        read -p "[fwifi] Enter the channel: " channel
+
+        if [[ ! "$channel" =~ ^[0-9]+$ ]]; then
+            echo "[Error] Invalid channel. Please enter a valid numeric channel."
+        else
+            read -p "[fwifi] Enter the output file name: " output_file
+            airodump-ng --bssid "${target_bssid}" --channel "${channel}" -w "${output_file}" "${interface}"
+            echo ""
+            read -p "[Info] Press [Enter] to continue..."
+        fi
+    fi
+}
+
+# Function to capture Wi-Fi data using Besside-ng
+besside_capture() {
+    airodump-ng "${interface}"
+    echo ""
+
+    read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
+
+    if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
+        echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
+    else
+        read -p "[fwifi] Enter the channel: " channel
+
+        if [[ ! "$channel" =~ ^[0-9]+$ ]]; then
+            echo "[Error] Invalid channel. Please enter a valid numeric channel."
+        else
+            besside-ng -b "${target_bssid}" -W -c "${channel}" -v "${interface}"
+            echo ""
+            read -p "[Info] Press [Enter] to continue..."
+        fi
+    fi
+}
+
+# Function to check for valid 4-way frames
+check_4way_frames() {
+    echo ""
+    echo "[Info] Checking for valid 4-way frames..."
+    echo ""
+    aircrack-ng -w "${wordlist}" "${cap_file}"
+    echo ""
+    read -p "[Info] Press [Enter] to continue..."
+}
+
+# Function to crack Wi-Fi key
+crack_wifi_key() {
+    echo ""
+    echo "[Menu] Choose Wi-Fi Key Cracking Tool"
+    echo ""
+    echo "[1] Aircrack-ng"
+    echo "[2] Cowpatty"
+    echo "[3] John The Ripper (John)"
+    echo ""
+
+    while true; do
+        read -p "[fwifi] Enter your choice (1-3): " crack_tool
+
+        case "${crack_tool}" in
+            1) aircrack_crack ;;
+            2) cowpatty_crack ;;
+            3) john_crack ;;
+            *) echo "[Error] Invalid choice." ;;
+        esac
+    done
+}
+
+# Function to crack Wi-Fi key using Aircrack-ng
+aircrack_crack() {
+    echo ""
+    read -p "[fwifi] Enter the .cap file path: " cap_file
+    echo ""
+    read -p "[fwifi] Enter the wordlist file path: " wordlist
+    echo ""
+    aircrack-ng -w "${wordlist}" "${cap_file}"
+    echo ""
+    read -p "[Info] Press [Enter] to continue..."
+}
+
+# Function to crack Wi-Fi key using Cowpatty
+cowpatty_crack() {
+    echo ""
+    read -p "[fwifi] Enter the .cap file path: " cap_file
+    echo ""
+    read -p "[fwifi] Enter the wordlist file path: " wordlist
+    echo ""
+    cowpatty -r "${cap_file}" -f "${wordlist}"
+    echo ""
+    read -p "[Info] Press [Enter] to continue..."
+}
+
+# Function to crack Wi-Fi key using John The Ripper (John)
+john_crack() {
+    echo ""
+    read -p "[fwifi] Enter the .cap file path: " cap_file
+    echo ""
+    read -p "[fwifi] Enter the wordlist file path: " wordlist
+    echo ""
+    john --wordlist="${wordlist}" --format=wpapsk --rules --stdout | aircrack-ng -w - "${cap_file}"
+    echo ""
+    read -p "[Info] Press [Enter] to continue..."
+}
+
+# Function to exit the program
+exit_program() {
+    echo ""
+    echo "[Info] Exiting FWIFI..."
+    echo ""
+    exit 0
+}
+
+# Function for invalid choice
+invalid_choice() {
+    echo ""
+    echo "[Error] Invalid choice. Please select a valid option."
+    echo ""
+    read -p "[Info] Press [Enter] to continue..."
+}
+
+# Call the display intro function
+display_intro
+
+# Main program loop
 while true; do
-  # Clear the terminal screen
-  clear
-  echo ""
-  echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-  echo "  _______      ________      _______      _______      _______  "
-  echo " |    ___|    |  |  |  |    |_     _|    |    ___|    |_     _| "
-  echo " |    ___|    |  |  |  |     _|   |_     |    ___|     _|   |_  "
-  echo " |___|        |________|    |_______|    |___|        |_______| "
-  echo "                                                                "
-  echo "          Github: https://github.com/rofidoang03/fwifi          "
-  echo "                                                                "
-  echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-  echo "                                                                "
-  echo " [Menu] FWIFI                                                   "
-  echo "                                                                "
-  echo " [0] Update                                                     "
-  echo " [1] Enable Monitor Mode                                        "
-  echo " [2] Disable Monitor Mode                                       "
-  echo " [3] Capture Wi-Fi Data                                         "
-  echo " [4] Inject Wi-Fi Packets                                       "
-  echo " [5] Check for valid 4-way frames                               "
-  echo " [6] Crack Wi-Fi Key                                            "
-  echo "[99] Exit                                                       "
-  echo "                                                                "
-  # Prompt user input
-  read -p "[fwifi] " choice
-
-  case $choice in
-    0)
-      # Update system packages
-      echo ""
-      apt-get update -y
-      echo ""
-      read -p "[Info] Press [Enter] to continue..."
-      ;;
-    1)
-      # Enable Monitor Mode
-      airmon-ng check kill
-      airmon-ng start "${interface}"
-      echo ""
-      read -p "[Info] Press [Enter] to continue..."
-      ;;
-    2)
-      # Disable Monitor Mode
-      airmon-ng stop "${interface}"
-      echo ""
-      read -p "[Info] Press [Enter] to continue..."
-      ;;
-    3)
-      # Capture Wi-Fi Data
-      echo ""
-      echo "[Menu] Choose Wi-Fi Data Capture Tool"
-      echo ""
-      echo "[1] Airodump-ng"
-      echo "[2] Besside-ng"
-      echo ""
-
-      while true; do
-          read -p "[fwifi] Enter your choice (1-2): " capture_tool
-
-          case "${capture_tool}" in
-            1)
-              # Capture Wi-Fi Data (Airodump-ng)
-              airodump-ng "${interface}"
-              echo ""
-
-              while true; do
-                  read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
-
-                  if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
-                      echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
-                  else
-                      break
-                  fi
-              done
-
-              while true; do
-                  read -p "[fwifi] Enter the channel: " channel
-
-                  if [[ ! "$channel" =~ ^[0-9]+$ ]]; then
-                      echo "[Error] Invalid channel. Please enter a valid numeric channel."
-                  else
-                      read -p "[fwifi] Enter the output file name: " output_file
-                      airodump-ng --bssid "${target_bssid}" --channel "${channel}" -w "${output_file}" "${interface}"
-                      echo ""
-                      read -p "[Info] Press [Enter] to continue..."
-                      break
-                  fi
-              done
-              break
-              ;;
-            2)
-              # Capture Wi-Fi Data (Besside-ng)
-              airodump-ng "${interface}"
-              echo ""
-
-              while true; do
-                  read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
-
-                  if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
-                      echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
-                  else
-                      break
-                  fi
-              done
-
-              while true; do
-                  read -p "[fwifi] Enter the channel: " channel
-
-                  if [[ ! "$channel" =~ ^[0-9]+$ ]]; then
-                      echo "[Error] Invalid channel. Please enter a valid numeric channel."
-                  else
-                      besside-ng -b "${target_bssid}" -W -c "${channel}" -v "${interface}"
-                      echo ""
-                      read -p "[Info] Press [Enter] to continue..."
-                      break
-                  fi
-              done
-              break
-              ;;
-            *)
-              echo "[Error] Invalid choice."
-              ;;
-          esac
-      done
-      ;;
-    4)
-      # Inject Wi-Fi Packets
-      while true; do
-          read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
-
-          if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
-              echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
-          else
-              aireplay-ng -0 0 -a "${target_bssid}" "${interface}"
-              echo ""
-              read -p "[Info] Press [Enter] to continue..."
-              break
-          fi
-      done
-      # break
-      ;;
-    5)
-      # Check for valid 4-way frames
-      while true; do
-          read -p "[fwifi] Enter the handshake file name:: " file_handshake
-
-          # Check if the specified file is not a .cap file
-          if [[ ! "${file_handshake}" =~ \.cap$ ]]; then
-              echo "[Error] Invalid file format. Please provide a valid .cap file."
-              # exit 1
-          else
-              cowpatty -c -r "${file_handshake}"
-              echo ""
-              read -p "[Info] Press [Enter] to continue..."
-              break
-          fi
-      done
-      ;;
-    6)
-      # Crack Wi-Fi Key with aircrack-ng
-      while true; do
-          read -p "[fwifi] Enter the handshake file name: " file_handshake
-
-          # Check if the specified file is not a .cap file
-          if [[ ! "${file_handshake}" =~ \.cap$ ]]; then
-              echo "[Error] Invalid file format. Please provide a valid .cap file."
-          else
-              break
-          fi
-      done
-
-      echo ""
-      echo "[Menu] Choose a Wordlist File"
-      echo ""
-      echo "[1] RockYou.txt"
-      echo "[2] Top 4800 Probable.txt"
-      echo "[3] Wotabuhun.txt"
-      echo "[4] Indonesian Wordlist.txt"
-      echo "[5] Custom Wordlist"
-      echo ""
-
-      while true; do
-          read -p "[fwifi] Enter your choice(1-5): " choice
-
-         case "${choice}" in
-           1)
-            file_wordlist="/usr/share/fwifi/wordlists/rockyou.txt"
-            break
-            ;;
-          2)
-            file_wordlist="/usr/share/fwifi/wordlists/wordlist-top4800-probable.txt"
-            break
-            ;;
-          3)
-            file_wordlist="/usr/share/fwifi/wordlists/wotabuhun.txt"
-            break
-            ;;
-          4)
-            file_wordlist="/usr/share/fwifi/wordlists/indonesian-wordlist.lst"
-            break
-            ;;
-          5)
-
-            while true; do
-                read -p "[fwifi] Enter the custom wordlist file name: " file_wordlist
-
-                # Check if the specified file is not a .cap file
-                if [[ ! -f "${file_wordlist}" ]]; then
-                    echo "[Error] Wordlist file '${file_wordlist}' not found."
-                else
-                    break
-                fi
-            done
-            break
-            ;;
-          *)
-            echo "[Error] Invalid choice."
-            ;;
-         esac
-      done
-
-      echo ""
-      echo "[Menu] Choose Wi-Fi Key Cracking Tool"
-      echo ""
-      echo "[1] Aircrack-ng"
-      echo "[2] Cowpatty"
-      echo "[3] John The Ripper"
-      echo ""
-
-      while true; do
-          read -p "[fwifi] Enter your choice (1-2): " cracking_tool
-
-          case "${cracking_tool}" in
-            1)
-              # Aircrack-ng for Wi-Fi key cracking
-              aircrack-ng -a2 -w "${file_wordlist}" "${file_handshake}"
-              echo ""
-              read -p "[Info] Press [Enter] to continue..."
-              break
-              ;;
-            2)
-              # Cowpatty for Wi-Fi key cracking
-              read -p "[fwifi] Enter the Network SSID: " ssid
-
-              while [[ -z "${ssid}" ]]; do
-                  echo "[Error] SSID Network cannot be empty."
-                  read -p "[fwifi] Enter the Network SSID: " ssid
-              done
-              clear
-              cowpatty -r "${file_handshake}" -s "${ssid}" -f "${file_wordlist}"
-              echo ""
-              read -p "[Info] Press [Enter] to continue..."
-              break
-              ;;
-            3)
-              # Convert to hccap format
-              aircrack-ng -J "${file_handshake}" "${file_handshake}"
-              # Create hash file from hccap file
-              /usr/share/fwifi/john/run/./hccap2john "${file_handshake}.hccap" > "${file_handshake}.fwifi"
-              # Hash file
-              hash_file="${file_handshake}.fwifi"
-              # Crack Wi-Fi Key with John The Ripper
-              /usr/share/fwifi/john/run/./john --format="wpapsk" --wordlist="${file_wordlist}" "${hash_file}"
-              /usr/share/fwifi/john/run/./john --show "${hash_file}"
-              echo ""
-              read -p "[Info] Press [Enter] to continue..."
-              break
-              ;;
-            *)
-              echo "[Error] Invalid choice."
-              ;;
-          esac
-      done
-      ;;
-    99)
-      # Exit
-      echo "[Info] Thank you! Exiting the program."
-      exit 0
-      ;;
-    ls)
-      # List files in the current directory
-      echo ""
-      ls
-      echo ""
-      read -p "[Info] Press [Enter] to continue..."
-      ;;
-    *)
-      # Invalid choice
-      echo "[Error] Invalid choice. Please choose again."
-      ;;
-  esac
+    main_menu
 done
