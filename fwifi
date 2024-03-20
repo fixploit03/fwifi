@@ -160,10 +160,12 @@ while true; do
               echo ""
 
               while true; do
-                  read -p "[fwifi] Enter the MAC Address of the Access Point: " target_bssid
+                  read -p "[fwifi] Enter the BSSID: " target_bssid
 
                   if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
                       echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
+                  elif [[ -z "${target_bssid}" ]]; then
+                      echo "[Error] BSSID cannot be empty."
                   else
                       break
                   fi
