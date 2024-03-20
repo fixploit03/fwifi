@@ -205,7 +205,6 @@ while true; do
                   if [[ ! "$channel" =~ ^[0-9]+$ ]]; then
                       echo "[Error] Invalid channel. Please enter a valid numeric channel."
                   else
-                      read -p "[fwifi] Enter the output file name: " output_file
                       besside-ng -b "${target_bssid}" -W -c "${channel}" -v "${interface}"
                       echo ""
                       read -p "[Info] Press [Enter] to continue..."
