@@ -189,7 +189,6 @@ crack_wifi_key() {
     echo ""
     echo "[1] Aircrack-ng"
     echo "[2] Cowpatty"
-    echo "[3] John The Ripper (John)"
     echo ""
 
     while true; do
@@ -198,7 +197,6 @@ crack_wifi_key() {
         case "${crack_tool}" in
             1) aircrack_crack ;;
             2) cowpatty_crack ;;
-            3) john_crack ;;
             *) echo "[Error] Invalid choice." ;;
         esac
     done
@@ -224,18 +222,6 @@ cowpatty_crack() {
     read -p "[fwifi] Enter the wordlist file path: " wordlist
     echo ""
     cowpatty -r "${cap_file}" -f "${wordlist}"
-    echo ""
-    read -p "[Info] Press [Enter] to continue..."
-}
-
-# Function to crack Wi-Fi key using John The Ripper (John)
-john_crack() {
-    echo ""
-    read -p "[fwifi] Enter the .cap file path: " cap_file
-    echo ""
-    read -p "[fwifi] Enter the wordlist file path: " wordlist
-    echo ""
-    john --wordlist="${wordlist}" --format=wpapsk --rules --stdout | aircrack-ng -w - "${cap_file}"
     echo ""
     read -p "[Info] Press [Enter] to continue..."
 }
