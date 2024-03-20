@@ -160,7 +160,7 @@ while true; do
               echo ""
 
               while true; do
-                  read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
+                  read -p "[fwifi] Enter the BSSID you want to attack: " target_bssid
 
                   if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
                       echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
@@ -190,7 +190,7 @@ while true; do
               echo ""
 
               while true; do
-                  read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
+                  read -p "[fwifi] Enter the BSSID you want to attack: " target_bssid
 
                   if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
                       echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
@@ -222,7 +222,7 @@ while true; do
     4)
       # Inject Wi-Fi Packets
       while true; do
-          read -p "[fwifi] Enter the BSSID you want to attack:: " target_bssid
+          read -p "[fwifi] Enter the BSSID you want to attack: " target_bssid
 
           if [[ ! "${target_bssid}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
               echo "[Error] Invalid BSSID format. Please enter a valid MAC address (e.g., XX:XX:XX:XX:XX:XX)."
@@ -238,7 +238,7 @@ while true; do
     5)
       # Check for valid 4-way frames
       while true; do
-          read -p "[fwifi] Enter the handshake file name:: " file_handshake
+          read -p "[fwifi] Enter the handshake file name: " file_handshake
 
           # Check if the specified file is not a .cap file
           if [[ ! "${file_handshake}" =~ \.cap$ ]]; then
