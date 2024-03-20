@@ -85,9 +85,9 @@ intro_text=(
     ""
 )
 
-#for line in "${intro_text[@]}"; do
-#    type_effect "$line" 0.1
-#done
+for line in "${intro_text[@]}"; do
+    type_effect "$line" 0.1
+done
 
 read -p "[Info] Press [Enter] to continue..."
 
