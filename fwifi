@@ -272,7 +272,8 @@ while true; do
       echo "[2] Top 4800 Probable.txt"
       echo "[3] Wotabuhun.txt"
       echo "[4] Indonesian Wordlist.txt"
-      echo "[5] Custom Wordlist"
+      echo "[5] WPA Over 200K.txt [Contains 203806 passwords]"
+      echo "[6] Custom Wordlist"
       echo ""
 
       while true; do
@@ -296,7 +297,10 @@ while true; do
             break
             ;;
           5)
-
+            file_wordlist="/usr/share/fwifi/wordlists/wpa-over200k.txt"
+            break
+            ;;
+          6)
             while true; do
                 read -p "[fwifi] Enter the custom wordlist file name: " file_wordlist
 
