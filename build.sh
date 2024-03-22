@@ -41,6 +41,7 @@ wget https://github.com/praetorian-inc/Hob0Rules/raw/master/wordlists/rockyou.tx
 gzip -d rockyou.txt.gz
 wget https://raw.githubusercontent.com/FII14/WOTABUHUN/main/wotabuhun.txt
 wget https://raw.githubusercontent.com/mychaelgo/indonesia-wordlist/master/indonesian-wordlist.lst
+wget https://github.com/david-palma/wordlists/raw/main/passwords-WPA/wpa-over200k.txt
 cd ..
 
 # Clone and install aircrack-ng
