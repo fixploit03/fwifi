@@ -96,4 +96,4 @@ Contributions to FWIFI are welcome! If you have any suggestions, improvements, o
 ## License
 FWIFI is released under the MIT License. Please review the license before using or contributing to the project.
 
-<p align="right">[<a href="https://github.com/rofidoang03/fwifi/tree/main#fwifi">back to top]</a></p>
+<p align="right">[<a href="https://github.com/rofidoang03/fwifi/tree/main#fwifi">back to top</a>]</p>
