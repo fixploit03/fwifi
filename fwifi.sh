@@ -303,7 +303,7 @@ function capture_handshake(){
         sleep "${lama_waktu}"
         pkill -P $$ xterm
         echo "[*] Proses capture handshake selesai."
-        echo "[*] File capture disimpan di: ${path}-01.cap"
+        echo "[*] File capture disimpan di: '${path}-01.cap'"
 }
 
 # Fungsi untuk memverifikasi hasil hasndshake yang ditangkap (OK)
