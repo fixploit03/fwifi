@@ -377,7 +377,8 @@ function crack_passpharase(){
                                         continue
                                 fi
                                 if [[ ! -f "${file_wordlist}" ]]; then
-                                        echo "[-] File Wordlist '${file_wordlist}' tidak ditemukan." continue
+                                        echo "[-] File Wordlist '${file_wordlist}' tidak ditemukan." 
+                                        continue
                                 fi
                                 echo "[*] Mengcrack WPA2/PSK passphrase menggunakan file Wordlist ${file_wordlist}..."
                                 sleep 3
