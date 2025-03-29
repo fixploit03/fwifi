@@ -17,6 +17,13 @@
 #
 # --------------------------------------------------
 
+# Tentang (OK)
+script="fwifi"
+deskripsi="Script Bash untuk Hack Wi-Fi secara otomatis."
+versi="v1.5"
+pembuat="Rofi (Fixploit03)"
+github="https://github.com/fixploit03/fwifi"
+
 # Fungsi untuk cek root 'pastikan script ini dijalankan sebagai root' (OK)
 function cek_root(){
         if [[ $EUID -ne 0 ]]; then
@@ -166,11 +173,11 @@ function show_banner(){
         echo "█████╗  ██║ █╗ ██║██║█████╗  ██║"
         echo "██╔══╝  ██║███╗██║██║██╔══╝  ██║"
         echo "██║     ╚███╔███╔╝██║██║     ██║"
-        echo "╚═╝      ╚══╝╚══╝ ╚═╝╚═╝     ╚═╝ v1.1"
+        echo "╚═╝      ╚══╝╚══╝ ╚═╝╚═╝     ╚═╝ ${versi}"
         echo "-------------------------------------------------"
-        echo "[*] Script Bash untuk Hack Wi-Fi secara otomatis."
-        echo "[*] Dibuat oleh: Rofi (Fixploit03)"
-        echo "[*] Github: https://github.com/fixploit03/fwifi"
+        echo "[*] ${deskripsi}"
+        echo "[*] Dibuat oleh: ${pembuat}"
+        echo "[*] Github: ${github}"
         echo "-------------------------------------------------"
         echo ""
 }
@@ -301,7 +308,7 @@ function capture_handshake(){
 
         # set nama file capture (OK)
         while true; do
-                read -p "[#] Masukkan nama file untuk menyimpan hasil capture handshake: " file_capture
+                read -p "[#] Masukkan nama file untuk menyimpan hasil capture handshake (tanpa ekstensi): " file_capture
                 if [[ -z "${file_capture}" ]]; then
                         echo "[-] Nama file capture tidak boleh kosong."
                         continue
@@ -393,25 +400,28 @@ function save_hasil_crack(){
                                                         wordlist="${file_wordlist}"
                                                 fi
                                                 cat <<EOF > "${path_hc}"
-<?xml version="1.0" encoding="UTF-8"?>
-<hasil_crack_wifi>
-        <data>
-                <ESSID>${essid_target}</ESSID>
-                <BSSID>${bssid_target}</BSSID>
-                <Channel>${channel_target}</Channel>
-                <Durasi_Capture_Handshake>${lama_waktu}</Durasi_Capture_Handshake>
-                <File_Capture>${path}-01.cap</File_Capture>
-                <File_Wordlist>${wordlist}</File_Wordlist>
-                <Passphrase>${password_wifi}</Passphrase>
-                <Waktu_Crack>
-                        <Hari>${h}</Hari>
-                        <Tanggal>${g}</Tanggal>
-                        <Bulan>${b}</Bulan>
-                        <Tahun>${t}</Tahun>
-                        <Jam>${j}</Jam>
-                </Waktu_Crack>
-        </data>
-</hasil_crack_wifi>
+<fwifi>
+        <Hasil_Crack_Wifi>
+                <Data>
+                        <ESSID>"${essid_target}"</ESSID>
+                        <BSSID>"${bssid_target}"</BSSID>
+                        <Channel>"${channel_target}"</Channel>
+                        <Durasi_Capture_Handshake>"${lama_waktu}"</Durasi_Capture_Handshake>
+                        <File_Capture>"${path}-01.cap"</File_Capture>
+                        <File_Wordlist>"${wordlist}"</File_Wordlist>
+                        <Passphrase>"${password_wifi}"</Passphrase>
+                        <Waktu_Crack>
+                                <Hari>"${h}"</Hari>
+                                <Tanggal>"${g}"</Tanggal>
+                                <Bulan>"${b}"</Bulan>
+                                <Tahun>"${t}"</Tahun>
+                                <Jam>"${j}"</Jam>
+                        </Waktu_Crack>
+                </Data>
+        </Hasil_Crack_Wifi>
+        <Author>"${pembuat}"</Author>
+        <Github>"${github}"</Github>
+</fwifi>
 EOF
                                                 echo "[+] Semua data hasil crack Wi-Fi disimpan di: '${path_hc}'"
                                                 break
