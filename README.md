@@ -1,11 +1,10 @@
 # fwifi
 
-![License](https://img.shields.io/github/license/fixploit03/fwifi?style=flat)  
-![Issues](https://img.shields.io/github/issues/fixploit03/fwifi?style=flat)  
-![Last Commit](https://img.shields.io/github/last-commit/fixploit03/fwifi?style=flat)  
-![Stars](https://img.shields.io/github/stars/fixploit03/fwifi?style=flat)  
+![License](https://img.shields.io/github/license/fixploit03/fwifi?style=flat) 
+![Issues](https://img.shields.io/github/issues/fixploit03/fwifi?style=flat)
+![Last Commit](https://img.shields.io/github/last-commit/fixploit03/fwifi?style=flat)
+![Stars](https://img.shields.io/github/stars/fixploit03/fwifi?style=flat)
 ![Forks](https://img.shields.io/github/forks/fixploit03/fwifi?style=flat)  
-
 
 fwifi adalah script Bash yang dirancang untuk melakukan proses hacking Wi-Fi secara otomatis menggunakan alat-alat dari suite Aircrack-ng. Script ini memungkinkan pengguna untuk memindai jaringan Wi-Fi, menangkap handshake, memverifikasi handshake, dan mencoba memecahkan kata sandi WPA2/PSK menggunakan wordlist.
 
