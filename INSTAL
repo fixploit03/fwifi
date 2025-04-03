@@ -1,0 +1,34 @@
+-------------------
+INSTAL FWIFI
+-------------------
+
+1. Update repositori Kali Linux
+
+  $ sudo apt-get update
+
+2. Instal tools dan dependensi yang diperlukan
+
+  $ sudo apt-get install aircrack-ng cowpatty xterm iw wireless-tools git
+
+3. Pindah ke direktori /opt
+
+  $ cd /opt
+
+4. Kloning repositori fwifi dari gitihub
+
+  $ sudo git clone https://github.com/fixploit03/fwifi.git
+
+5. Pindah ke direktori fwifi
+  cd fwifi
+
+6. Berikan izin eksekusi pada script fwifi
+
+  $ sudo chmod +x src/fwifi
+
+7. Salin script fwifi ke direktori /usr/local/bin
+
+  $ sudo cp src/fwifi /usr/local/bin
+
+------------------------------------------------------------
+fwifi berhasil diinstal dan dapat dijalankan dari mana saja.
+------------------------------------------------------------
