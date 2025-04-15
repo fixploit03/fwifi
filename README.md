@@ -6,7 +6,7 @@
 ![Stars](https://img.shields.io/github/stars/fixploit03/fwifi?style=flat)
 ![Forks](https://img.shields.io/github/forks/fixploit03/fwifi?style=flat)  
 
-fwifi adalah script Bash yang dirancang untuk melakukan proses hacking Wi-Fi secara otomatis menggunakan alat-alat dari suite Aircrack-ng. Script ini memungkinkan pengguna untuk memindai jaringan Wi-Fi, menangkap handshake, memverifikasi handshake, dan mencoba memecahkan kata sandi WPA2/PSK menggunakan wordlist.
+fwifi adalah script Bash yang dirancang untuk mengotomatisasi proses peretasan jaringan Wi-Fi menggunakan perangkat lunak Aircrack-ng. script ini bertujuan untuk mempermudah pengguna dalam melakukan penetrasi jaringan Wi-Fi dengan langkah-langkah seperti pemindaian, penangkapan handshake, verifikasi, dan peretasan kata sandi WPA2/PSK.
 
 ## Persyaratan
 
